@@ -1,6 +1,6 @@
 
 
-import '../base.dart';
+import '../../base.dart';
 
 class NoDataWidget extends StatelessWidget {
   const NoDataWidget({Key? key}) : super(key: key);

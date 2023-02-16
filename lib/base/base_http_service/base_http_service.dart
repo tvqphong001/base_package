@@ -1,5 +1,5 @@
-import 'package:dio/dio.dart';
-import 'package:mpos/base/base_response.dart';
+import '../base.dart';
+import 'base_response.dart';
 
 abstract class BaseHttpService {
   const BaseHttpService();
@@ -7,3 +7,5 @@ abstract class BaseHttpService {
 
   Future<ApiResponse<Response?>> get({required String path});
 }
+
+

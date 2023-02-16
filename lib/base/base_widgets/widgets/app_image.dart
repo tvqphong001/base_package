@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 
-import '../base.dart';
+import '../../base.dart';
 
 class AppImage extends StatelessWidget {
   final dynamic data;

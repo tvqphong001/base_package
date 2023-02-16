@@ -1,4 +1,4 @@
-import '../base.dart';
+import '../../base.dart';
 
 const defaultShaderPadding = EdgeInsets.only(bottom: 40);
 class AppShaderMask extends StatelessWidget {

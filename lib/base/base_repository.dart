@@ -1,6 +1,5 @@
-import 'package:mpos/utils/services/rest_api_service.dart';
-
 import 'base.dart';
+import 'base_http_service/rest_api_service.dart';
 
 abstract class BaseRepository {
   final httpClient = getIt<RestApiService>();

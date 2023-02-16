@@ -1,6 +1,6 @@
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
-import '../base.dart';
+import '../../base.dart';
 
 class RefreshLoadMoreWidget extends StatefulWidget {
   final Widget child;

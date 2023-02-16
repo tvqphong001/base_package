@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 
-import '../base.dart';
+import '../../base.dart';
 
 class AppCarouselSlider extends StatefulWidget {
   final Function(int)? onPageChanged;

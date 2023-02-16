@@ -1,4 +1,4 @@
-import 'package:mpos/base/base.dart';
+import '../../base.dart';
 
 class DotsWidget extends StatelessWidget {
   final int length;
@@ -31,7 +31,7 @@ class DotsWidget extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(size / 2)),
             color: index == i ? activeColor : inactiveColor),
-        child: Button.noAnim(child: const SizedBox(), onPressed: () {
+        child: Button(child: const SizedBox(), onPressed: () {
           onTapDot?.call(i);
         },),
       ));

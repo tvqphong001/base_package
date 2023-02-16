@@ -1,5 +1,7 @@
 import 'package:flutter/services.dart';
-import 'package:mpos/base/base.dart';
+
+import '../../base.dart';
+
 
 class MyScaffold extends StatelessWidget {
   final Widget body;
@@ -30,7 +32,7 @@ class MyScaffold extends StatelessWidget {
     this.enableScrollContent = false,
     this.bottomButton,
     this.bottomNavigationBar,
-    this.backgroundColor = ColorsApp.wiserink20,
+    this.backgroundColor,
     this.paddingVertical,
     this.padding,
     this.floatingActionButton,

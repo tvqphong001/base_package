@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 
-import '../base.dart';
+import '../../base.dart';
 
 class AppCheckbox extends StatefulWidget {
   final bool defaultValue;

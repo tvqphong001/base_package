@@ -1,4 +1,4 @@
-import '../base.dart';
+import '../../base.dart';
 
 class MyAppBar extends _AppBar {
   MyAppBar({
@@ -129,13 +129,13 @@ class _AppBar extends AppBar {
           key: key,
           systemOverlayStyle:
               const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
-          backgroundColor: backgroundColor ??  ColorsApp.wiserink20,
+          backgroundColor: backgroundColor ,
           title: titleWidget ??
-              AppText(
-                text: title,
+              TextApp(
+                title,
                 textAlign: TextAlign.left,
                 fontWeight: FontWeight.bold,
-                textSize: 18,
+                fontSize: 18,
               ),
           elevation: 0,
           centerTitle: true,
@@ -144,7 +144,7 @@ class _AppBar extends AppBar {
               : MyBackButton(
                   onPressed: () {
                     if (onLeadingPressed == null) {
-                      App.back();
+                      pop();
                     } else {
                       onLeadingPressed.call();
                     }
@@ -171,7 +171,7 @@ class MyBackButton extends StatelessWidget {
         height: 40,
         onPressed: () {
           if (onPressed == null) {
-            App.back();
+            pop();
           } else {
             onPressed?.call();
           }

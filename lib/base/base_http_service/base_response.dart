@@ -1,6 +1,4 @@
-import 'package:mpos/constants/app_constants.dart';
-
-import '../../base/base.dart';
+import '../../../base/base.dart';
 
 class ApiResponse<DATA> {
   final DATA? data;

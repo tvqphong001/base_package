@@ -1,15 +1,6 @@
 import 'dart:ui';
-import '../base.dart';
+import '../../base.dart';
 
-class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: UiUtils.loading(context: context),
-    );
-  }
-}
 
 bool isLoading = false;
 
@@ -27,7 +18,21 @@ void showLoading() {
 void hideLoading() {
   if (isLoading) {
     isLoading = false;
+    pop();
+  }
+}
 
+
+class LoadingWidget extends StatelessWidget {
+  const LoadingWidget({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: CircularProgressIndicator(
+        backgroundColor: Colors.grey,
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+      ),
+    );
   }
 }
 

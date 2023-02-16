@@ -1,4 +1,4 @@
-import 'package:mpos/base/base.dart';
+import '../../base.dart';
 
 class AppScrollView extends StatelessWidget {
   final Widget child;

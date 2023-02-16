@@ -1,4 +1,4 @@
-import '../base.dart';
+import '../../base.dart';
 
 class DividerDash extends StatelessWidget {
   final double height;

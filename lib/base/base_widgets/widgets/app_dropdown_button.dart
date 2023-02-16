@@ -1,6 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 
-import '../base.dart';
+import '../../base.dart';
 
 class AppDropDownButton<T> extends StatelessWidget {
   final String? hint;
@@ -25,7 +25,7 @@ class AppDropDownButton<T> extends StatelessWidget {
       child: DropdownButton2(
         buttonSplashColor: Colors.transparent,
         value: value,
-        hint: AppText(text: hint ?? ''),
+        hint: TextApp(hint ?? ''),
         onMenuStateChange: (value) {},
         items: items,
         // itemPadding: EdgeInsets.zero,

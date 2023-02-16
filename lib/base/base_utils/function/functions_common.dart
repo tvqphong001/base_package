@@ -3,7 +3,7 @@ import 'package:flutter/scheduler.dart';
 import '../../base.dart';
 
 void hideKeyBoard([BuildContext? context]){
-  FocusScopeNode currentFocus = FocusScope.of(context??Get.context!);
+  FocusScopeNode currentFocus = FocusScope.of(context??currentContext);
   if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
     FocusManager.instance.primaryFocus?.unfocus();
   }
