@@ -1,10 +1,4 @@
-
-
-import 'package:dio/dio.dart';
 import '../base.dart';
-import '../base_utils/function/functions.dart';
-import 'base_http_service.dart';
-import 'base_response.dart';
 
 class RestApiService extends BaseHttpService {
   static final Dio dio = Dio();

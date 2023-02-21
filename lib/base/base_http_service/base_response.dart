@@ -3,7 +3,7 @@ import '../../../base/base.dart';
 class ApiResponse<DATA> {
   final DATA? data;
   final ApiError? apiError;
-  final Page? meta;
+  final PageData? meta;
   final int? statusCode;
 
   bool get isSuccess => statusCode == httpStatusCodeSuccess200 || statusCode == httpStatusCodeSuccess201;
@@ -26,13 +26,13 @@ class ApiError {
         error = null;
 }
 
-class Page {
+class PageData {
   int? totalPages;
   int? totalRecords;
 
-  Page({this.totalPages, this.totalRecords});
+  PageData({this.totalPages, this.totalRecords});
 
-  Page.fromJson(Map<String, dynamic> json) {
+  PageData.fromJson(Map<String, dynamic> json) {
     totalPages = json['totalPages'];
     totalRecords = json['totalRecords'];
   }

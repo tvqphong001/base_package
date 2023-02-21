@@ -7,6 +7,8 @@ import 'package:intl/intl.dart';
 export 'base_widgets/base_widgets.dart';
 export 'base_utils/base_utils.dart';
 export 'base_constants.dart';
+export 'base_http_service/base_service.dart';
+export 'base_repository.dart';
 // -----
 
 // packages
