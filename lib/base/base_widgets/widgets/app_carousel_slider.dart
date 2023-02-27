@@ -6,10 +6,12 @@ class AppCarouselSlider extends StatefulWidget {
   final Function(int)? onPageChanged;
   final List<Widget> items;
   final CarouselController? carouselController;
+  final Duration? autoPlayInterval;
   const AppCarouselSlider({
     Key? key,
     this.onPageChanged,
     required this.items, this.carouselController,
+    this.autoPlayInterval,
   }) : super(key: key);
 
   @override
@@ -30,7 +32,7 @@ class _AppCarouselSliderState extends State<AppCarouselSlider> {
           padEnds: false,
           enlargeCenterPage: false,
           autoPlayAnimationDuration: const Duration(milliseconds: 300),
-          autoPlayInterval: const Duration(seconds: 10),
+          autoPlayInterval: widget.autoPlayInterval??const Duration(seconds: 10),
           autoPlayCurve: Curves.easeIn,
           autoPlay: true,
           onPageChanged: (index, reason) {

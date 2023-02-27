@@ -5,6 +5,7 @@ final ScreenHelper = _ScreenHelper();
 
 
 class _ScreenHelper {
+
   late BuildContext context;
   var _designWidth = 375.0;
   var _designHeight = 375.0;

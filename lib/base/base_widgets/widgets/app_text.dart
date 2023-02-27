@@ -13,6 +13,8 @@ class TextApp extends StatelessWidget {
   final FontWeight? fontWeight;
   final Color? color;
   final TextStyle? style;
+  final String? fontFamily;
+  final double? letterSpacing;
 
   const TextApp(
     this.text, {
@@ -28,6 +30,8 @@ class TextApp extends StatelessWidget {
     this.softWrap,
     this.fontStyle,
     this.style,
+        this.fontFamily,
+        this.letterSpacing,
   }) : super(key: key);
 
   @override
@@ -44,7 +48,10 @@ class TextApp extends StatelessWidget {
             fontSize: fontSize,
             fontWeight: fontWeight,
             color: color,
+            fontStyle: fontStyle,
             decoration: textDecoration,
+            fontFamily: fontFamily,
+            letterSpacing: letterSpacing,
             height: height,
           ),
     );

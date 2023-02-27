@@ -4,6 +4,7 @@ import '../../base.dart';
 
 class AppDropDownButton<T> extends StatelessWidget {
   final String? hint;
+  final Widget? hintWidget;
   final T? value;
   final List<DropdownMenuItem> items;
   final Widget? customButton;
@@ -15,6 +16,7 @@ class AppDropDownButton<T> extends StatelessWidget {
       this.value,
       required this.items,
       this.onChange,
+        this.hintWidget,
       this.customButton,
       this.customItemsHeights})
       : super(key: key);
@@ -25,7 +27,7 @@ class AppDropDownButton<T> extends StatelessWidget {
       child: DropdownButton2(
         buttonSplashColor: Colors.transparent,
         value: value,
-        hint: TextApp(hint ?? ''),
+        hint: hintWidget??TextApp(hint ?? ''),
         onMenuStateChange: (value) {},
         items: items,
         // itemPadding: EdgeInsets.zero,

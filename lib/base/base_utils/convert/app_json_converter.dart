@@ -36,22 +36,22 @@ class JsonConvertToString implements JsonConverter<String, dynamic> {
   String toJson(String object) => object.toString();
 }
 
-class JsonConvertToDateTime implements JsonConverter<DateTime, dynamic> {
-  const JsonConvertToDateTime();
-
-  @override
-  DateTime fromJson(dynamic json) {
-    if (json is String) {
-      return DateTime.parse(json);
-    }
-    return DateTime.now();
-  }
-
-  @override
-  String toJson(DateTime object) {
-    return object.date;
-  }
-}
+// class JsonConvertToDateTime implements JsonConverter<DateTime, dynamic> {
+//   const JsonConvertToDateTime();
+//
+//   @override
+//   DateTime fromJson(dynamic json) {
+//     if (json is String) {
+//       return DateTime.parse(json);
+//     }
+//     return DateTime.now();
+//   }
+//
+//   @override
+//   String toJson(DateTime object) {
+//     return object.date;
+//   }
+// }
 
 // bool converter
 class JsonConvertToBool implements JsonConverter<bool, dynamic> {
@@ -128,7 +128,7 @@ Map<String, dynamic> readValueObject(Map map, String key) {
 const $appConverter = <JsonConverter>[
   JsonConvertToString(),
   JsonStringToInt(),
-  JsonConvertToDateTime(),
+  // JsonConvertToDateTime(),
   JsonConvertToBool(),
   JsonConvertToDouble(),
   JsonConvertToList(),

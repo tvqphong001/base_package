@@ -8,6 +8,14 @@ extension StringExNull on String?{
 
     return this!.isEmpty;
   }
+
+  bool get isNotEmptyOrNull {
+    if(this == null){
+      return false;
+    }
+
+    return this!.isNotEmpty;
+  }
 }
 
 extension StringEx on String{

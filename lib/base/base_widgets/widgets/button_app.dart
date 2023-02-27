@@ -9,6 +9,8 @@ class Button extends StatefulWidget {
   final Widget child;
   final double minWidth;
   final double? maxWidth;
+  final double? maxHeight;
+  final double? width;
   final double? height;
   final double? size;
   final Color? background;
@@ -29,6 +31,7 @@ class Button extends StatefulWidget {
       this.onLongPress,
       this.noAnim = false,
       this.minWidth = 10,
+      this.maxHeight,
       this.height,
       this.textToolTip,
       this.padding,
@@ -41,6 +44,7 @@ class Button extends StatefulWidget {
       this.margin,
       this.decoration,
       this.size,
+        this.width,
       this.needDelay = true})
       : super(key: key);
 
@@ -60,7 +64,9 @@ class _ButtonState extends State<Button> {
     return Container(
       height: widget.size ?? widget.height,
       margin: widget.margin,
+      width: widget.width,
       constraints: BoxConstraints(
+        maxHeight: widget.maxHeight??double.infinity,
         minWidth: widget.minWidth,
         maxWidth: widget.size ?? widget.maxWidth ?? double.infinity,
       ),

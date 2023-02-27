@@ -1,4 +1,4 @@
-library base;
+library base_package;
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -16,6 +16,7 @@ export 'package:dio/dio.dart';
 export 'package:equatable/equatable.dart';
 export 'package:collection/collection.dart';
 export 'package:copy_with_extension/copy_with_extension.dart';
+export 'package:json_annotation/json_annotation.dart';
 
 // build-in packages
 export 'dart:io';

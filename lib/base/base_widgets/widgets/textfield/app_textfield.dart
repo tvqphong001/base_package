@@ -18,6 +18,7 @@ class SelectableData<T> {
 
 class AppTextField<T> extends StatefulWidget {
   final double? height;
+  final double? width;
   final TextEditingController? controller;
   final Function(String)? onChange;
   final VoidCallback? onTap;
@@ -28,7 +29,9 @@ class AppTextField<T> extends StatefulWidget {
   final AppTextFieldType type;
   final TextInputType? keyboardType;
   final Color? borderColor;
+  final BorderRadius? borderRadius;
   final Color? hintColor;
+  final FontStyle? hintStyle;
   final EdgeInsets? contentPadding;
   final int? maxLine;
   final InputBorder? inputBorder;
@@ -38,9 +41,12 @@ class AppTextField<T> extends StatefulWidget {
   const AppTextField({
     Key? key,
     this.height,
+    this.width,
     this.controller,
+    this.borderRadius,
     this.suffixIcon,
     this.hint,
+    this.hintStyle,
     this.item,
     this.onTap,
     this.type = AppTextFieldType.normal,
@@ -57,8 +63,11 @@ class AppTextField<T> extends StatefulWidget {
   const AppTextField.selectable({
     Key? key,
     this.height,
+    this.width,
     this.controller,
+    this.borderRadius,
     this.suffixIcon,
+    this.hintStyle,
     this.hint,
     this.item,
     this.borderColor,
@@ -76,12 +85,15 @@ class AppTextField<T> extends StatefulWidget {
   const AppTextField.tapOnly({
     Key? key,
     this.height,
+    this.width,
     this.controller,
     required this.onTap,
     this.suffixIcon,
+    this.borderRadius,
     this.hint,
     this.borderColor,
     this.contentPadding,
+    this.hintStyle,
     this.hintColor,
     this.maxLine,
     this.inputBorder,
@@ -120,12 +132,13 @@ class AppTextFieldState extends State<AppTextField> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: widget.height,
+      width: widget.width,
       child: TextFormField(
         controller: _controller,
         enabled: _enable,
         maxLines: widget.maxLine,
         keyboardType: widget.keyboardType,
-        style: widget.textStyle,
+        style: widget.textStyle??Theme.of(context).textTheme.bodyMedium,
         onChanged: (value){
           widget.onChange?.call(value);
         },
@@ -135,17 +148,17 @@ class AppTextFieldState extends State<AppTextField> {
             contentPadding: widget.contentPadding,
             hintText: widget.hint,
             hintStyle: widget.textStyle == null
-                ? Theme.of(context).textTheme.bodyMedium?.copyWith(color: widget.hintColor)
-                : widget.textStyle?.copyWith(color: widget.hintColor),
+                ? Theme.of(context).textTheme.bodyMedium?.copyWith(color: widget.hintColor,fontStyle: widget.hintStyle)
+                : widget.textStyle?.copyWith(color: widget.hintColor,fontStyle: widget.hintStyle),
             border: widget.inputBorder ??
                 OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: widget.borderRadius??BorderRadius.circular(4),
                     borderSide: BorderSide(width: 1, color: widget.borderColor ?? Colors.black)),
             disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: widget.borderRadius??BorderRadius.circular(4),
                 borderSide: BorderSide(width: 1, color: widget.borderColor ?? Colors.black)),
             enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: widget.borderRadius??BorderRadius.circular(4),
                 borderSide: BorderSide(width: 1, color: widget.borderColor ?? Colors.black))),
         onTap: widget.onTap,
       ),
