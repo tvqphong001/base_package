@@ -43,4 +43,8 @@ extension StringEx on String{
   double get moneyToDouble{
     return double.tryParse(replaceAll(',', '').replaceAll('.', '').replaceAll(appCurrency, ''))??0;
   }
+
+  bool get isTrimEmpty {
+    return trim().isEmpty;
+  }
 }
