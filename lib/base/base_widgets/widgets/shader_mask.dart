@@ -1,6 +1,6 @@
 import '../../base.dart';
 
-const defaultShaderPadding = EdgeInsets.only(bottom: 40);
+const defaultShaderPadding = EdgeInsets.only(bottom: 40,top: 20);
 class AppShaderMask extends StatelessWidget {
   final BlendMode? blendMode;
   final List<Color>? colors;

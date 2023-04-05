@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
 export "FLUTTER_ROOT=/Users/phong/flutter"
-export "FLUTTER_APPLICATION_PATH=/Users/phong/StudioProjects/base_package"
+export "FLUTTER_APPLICATION_PATH=/Users/phong/Project/Excel Tech/base_package"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=0.0.1"

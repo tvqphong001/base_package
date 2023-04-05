@@ -109,12 +109,9 @@ void configUI([bool enablePortraitUp = true]) {
   // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky, overlays: SystemUiOverlay.values);
   if (enablePortraitUp) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  }else{
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.landscapeRight,DeviceOrientation.landscapeLeft,]);
   }
-
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-  ));
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 }
 
 List chunkList(List data, {int chunkSize = 2}) {

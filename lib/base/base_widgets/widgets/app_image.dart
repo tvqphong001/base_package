@@ -24,10 +24,10 @@ class AppImage extends StatelessWidget {
     this.colorBlendMode,
     this.color,
     this.size,
+    this.isNetwork = false,
   })  : isMemory = false,
         dataMemory = null,
         isFile = false,
-        isNetwork = false,
         file = null,
         super(key: key);
 
@@ -209,7 +209,7 @@ class AppCircleImage extends StatelessWidget {
             builder: (context,size) {
               return ClipRRect(
                 borderRadius: BorderRadius.circular(size.maxWidth/2),
-                child: AppImage(path),
+                child: AppImage(path,isNetwork: isNetwork),
               );
             }
         ),

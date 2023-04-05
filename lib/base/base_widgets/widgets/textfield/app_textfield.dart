@@ -19,6 +19,7 @@ class SelectableData<T> {
 class AppTextField<T> extends StatefulWidget {
   final double? height;
   final double? width;
+  final Color? backgroundColor;
   final TextEditingController? controller;
   final Function(String)? onChange;
   final VoidCallback? onTap;
@@ -58,6 +59,7 @@ class AppTextField<T> extends StatefulWidget {
     this.inputBorder,
     this.prefixIcon,
     this.textStyle, this.initText, this.onChange,
+    this.backgroundColor,
   }) : super(key: key);
 
   const AppTextField.selectable({
@@ -77,6 +79,7 @@ class AppTextField<T> extends StatefulWidget {
     this.inputBorder,
     this.prefixIcon,
     this.textStyle, this.initText, this.onChange,
+    this.backgroundColor,
   })  : onTap = null,
         type = AppTextFieldType.selectable,
         keyboardType = null,
@@ -99,6 +102,7 @@ class AppTextField<T> extends StatefulWidget {
     this.inputBorder,
     this.prefixIcon,
     this.textStyle, this.initText, this.onChange,
+    this.backgroundColor,
   })  : item = null,
         type = AppTextFieldType.onlyTap,
         keyboardType = null,
@@ -130,9 +134,13 @@ class AppTextFieldState extends State<AppTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: widget.height,
       width: widget.width,
+      decoration: BoxDecoration(
+        color: widget.backgroundColor,
+        borderRadius: widget.borderRadius,
+      ),
       child: TextFormField(
         controller: _controller,
         enabled: _enable,

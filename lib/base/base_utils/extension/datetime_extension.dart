@@ -69,4 +69,11 @@ extension AppDateTime on DateTime {
   String get onlyTime {
     return _timeFormat.format(this);
   }
+
+  bool get isToDay{
+    var now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final aDate = DateTime(year, month, day);
+    return today==aDate;
+  }
 }

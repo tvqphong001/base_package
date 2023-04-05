@@ -5,12 +5,14 @@ import '../../base.dart';
 class AppCheckbox extends StatefulWidget {
   final bool defaultValue;
   final String? text;
+  final Widget? widget;
   final ValueChanged<bool> onValueChange;
 
   const AppCheckbox({
     Key? key,
     this.defaultValue = false,
     this.text,
+    this.widget,
     required this.onValueChange,
   }) : super(key: key);
 
@@ -43,6 +45,7 @@ class _AppCheckboxState extends State<AppCheckbox> {
           activeColor: const Color(0xff6F61FF),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         ),
+        if(widget.widget!=null) widget,
         if (widget.text != null)
           Expanded(
             child: Column(
