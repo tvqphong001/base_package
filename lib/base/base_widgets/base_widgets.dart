@@ -16,4 +16,5 @@ export 'widgets/app_dropdown_button.dart';
 export 'widgets/divider_dash.dart';
 export 'widgets/app_text.dart';
 export 'widgets/back_button.dart';
+export 'widgets/item_page_alive.dart';
 // export 'widgets/custom_tabbar.dart';

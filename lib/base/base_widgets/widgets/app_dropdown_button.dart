@@ -1,3 +1,4 @@
+import 'package:dropdown_below/dropdown_below.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
 import '../../base.dart';
@@ -38,6 +39,77 @@ class AppDropDownButton<T> extends StatelessWidget {
         customButton: customButton,
         onChanged: (value) {
           onChange?.call(value);
+        },
+      ),
+    );
+  }
+}
+
+class DropDownData<T> extends Equatable {
+  final String text;
+  final T data;
+
+  const DropDownData(this.text, this.data);
+
+  @override
+  List<Object?> get props => [text];
+}
+
+class DropDownBelowButton<T> extends StatelessWidget {
+  final DropDownData<T> value;
+  final List<DropDownData<T>> listValue;
+  final Function(DropDownData<T>) onChange;
+  final TextStyle? textStyle;
+  final double? width;
+  const DropDownBelowButton(
+      {Key? key,
+        required this.value,
+        required this.listValue,
+        required this.onChange, this.textStyle, this.width})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.black,
+          ),
+        ),
+      ),
+      child: DropdownBelow<DropDownData<T>?>(
+        itemWidth: width,
+        itemTextstyle: textStyle,
+        icon: const Icon(
+          Icons.arrow_drop_down,
+        ),
+        boxTextstyle: const TextStyle(
+          fontSize: 14,
+
+        ),
+        hint: Container(
+          padding: const EdgeInsets.only(bottom: 20, top: 20),
+          child: TextApp(
+            value.text,
+            style: textStyle,
+          ),
+        ),
+        boxWidth: width,
+        value: value,
+        items: listValue.map((prefix) {
+          return DropdownMenuItem<DropDownData<T>?>(
+            value: prefix,
+            child: TextApp(
+              prefix.text ?? '',
+              style: textStyle,
+            ),
+          );
+        }).toList(),
+        onChanged: (value){
+          if(value!=null){
+            onChange(value);
+          }
         },
       ),
     );

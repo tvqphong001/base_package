@@ -24,6 +24,8 @@ extension AppDateTime on DateTime {
     return defaultValue;
   }
 
+  String get toUtcString => toUtc().toString();
+
   String get monthYear {
     return month.toString().padLeft(2, '0') +'/' + year.toString();
   }

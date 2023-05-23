@@ -59,7 +59,7 @@ class _ButtonState extends State<Button> {
   @override
   Widget build(BuildContext context) {
     var buttonBorderRadius = widget.decoration != null
-        ? widget.decoration!.borderRadius!
+        ? widget.decoration!.borderRadius?? BorderRadius.zero
         : widget.borderRadius ?? BorderRadius.zero;
     return Container(
       height: widget.size ?? widget.height,

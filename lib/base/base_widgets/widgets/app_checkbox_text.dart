@@ -56,7 +56,7 @@ class _AppCheckboxState extends State<AppCheckbox> {
                 ),
                 RichText(
 
-                  text: TextSpan(style: textTheme.bodyMedium, children: [
+                  text: TextSpan(style: Theme.of(context).textTheme.bodyMedium, children: [
                     TextSpan(
                         text: widget.text!,
                         recognizer: TapGestureRecognizer()

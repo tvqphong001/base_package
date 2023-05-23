@@ -136,7 +136,7 @@ class AppListView extends ListView{
     super.primary,
     super.physics,
     super.shrinkWrap,
-     EdgeInsets? padding,
+    EdgeInsets? padding,
     double? itemExtent,
     Widget? prototypeItem,
     required this.childrenDelegate,

@@ -44,7 +44,7 @@ class TextApp extends StatelessWidget {
       softWrap: softWrap ?? true,
       // textScaleFactor: 1.0,
       style: style ??
-          textTheme.bodyMedium?.copyWith(
+          Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontSize: fontSize,
             fontWeight: fontWeight,
             color: color,
