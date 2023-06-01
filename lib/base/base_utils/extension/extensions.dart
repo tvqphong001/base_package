@@ -6,6 +6,8 @@ export 'datetime_extension.dart';
 export 'page_controller_extension.dart';
 export 'navigator.dart';
 export 'context_extension.dart';
+export 'iterable_extension.dart';
+export 'color_extension.dart';
 
 const appCurrency = 'đ';
 const maxMoney = 2e7;

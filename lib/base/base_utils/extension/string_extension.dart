@@ -16,6 +16,10 @@ extension StringExNull on String?{
 
     return this!.isNotEmpty;
   }
+
+  int get toInt {
+    return int.tryParse(this??'')??0;
+  }
 }
 
 extension StringEx on String{

@@ -1,3 +1,4 @@
+import 'package:base_package/base/base.dart';
 import 'package:intl/intl.dart';
 
 final appDateFormat =DateFormat("dd/MM/yyyy", "vi_VI");
@@ -24,7 +25,7 @@ extension AppDateTime on DateTime {
     return defaultValue;
   }
 
-  String get toUtcString => toUtc().toString();
+  String get toUtcString => toUtc().toIso8601String();
 
   String get monthYear {
     return month.toString().padLeft(2, '0') +'/' + year.toString();
@@ -78,4 +79,19 @@ extension AppDateTime on DateTime {
     final aDate = DateTime(year, month, day);
     return today==aDate;
   }
+
+  String titleDate(Locale locale) {
+    if (locale.languageCode == 'vi') {
+      return DateFormat('dd MMMM yyyy', locale.languageCode).format(this);
+    }
+    return DateFormat('MMM dd yyyy', locale.languageCode).format(this);
+  }
+
+  String simpleDate1(Locale locale) {
+    if (locale.languageCode == 'vi') {
+      return DateFormat('dd/MM/yyyy', locale.languageCode).format(this);
+    }
+    return DateFormat('MM/dd/yyyy', locale.languageCode).format(this);
+  }
+
 }

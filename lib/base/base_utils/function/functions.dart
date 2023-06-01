@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 export 'functions_foundation.dart';
 export 'functions_ui.dart';
 export 'functions_router.dart';
+export 'functions_system.dart';
 
 void hideKeyBoard([BuildContext? context]) {
   FocusScopeNode currentFocus = FocusScope.of(context ?? ScreenHelper.context);
