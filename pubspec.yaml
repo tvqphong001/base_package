@@ -28,7 +28,6 @@ dependencies:
   app_settings: ^4.1.8
   permission_handler:
   carousel_slider: ^4.1.1
-
   json_annotation: ^4.8.0
   logger: any
   equatable: any
@@ -36,9 +35,11 @@ dependencies:
   dropdown_button2: ^1.9.2
   get_it:
   dio: ^4.0.6
+  get:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+#    need add below line into your project
   copy_with_extension_gen: ^5.0.0
   build_runner: any
   json_serializable: ^6.4.0

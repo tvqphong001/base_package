@@ -82,7 +82,7 @@ extension AppDateTime on DateTime {
 
   String titleDate(Locale locale) {
     if (locale.languageCode == 'vi') {
-      return DateFormat('dd MMMM yyyy', locale.languageCode).format(this);
+      return DateFormat('dd MMM yyyy', locale.languageCode).format(this);
     }
     return DateFormat('MMM dd yyyy', locale.languageCode).format(this);
   }

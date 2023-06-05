@@ -162,13 +162,14 @@ class _AppBar extends AppBar {
 class MyBackButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final Color? color;
-  const MyBackButton({Key? key, this.onPressed, this.color}) : super(key: key);
+  final double size;
+  const MyBackButton({Key? key, this.onPressed, this.color,this.size = 40}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-        minWidth: 40,
-        height: 40,
+        minWidth: size,
+        height: size,
         onPressed: () {
           if (onPressed == null) {
             pop();

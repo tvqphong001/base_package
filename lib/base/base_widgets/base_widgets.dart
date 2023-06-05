@@ -18,3 +18,6 @@ export 'widgets/app_text.dart';
 export 'widgets/back_button.dart';
 export 'widgets/item_page_alive.dart';
 // export 'widgets/custom_tabbar.dart';
+
+// menu
+export 'widgets/menu/menu_app.dart';

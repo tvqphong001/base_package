@@ -1,3 +1,5 @@
+
+
 import 'package:base_package/base/base.dart';
 
 class BottomSheetData<T> {
@@ -60,8 +62,8 @@ class _BottomSheetMultiSelectState<T> extends State<BottomSheetMultiSelect<T>> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(topRight: Radius.circular(15),topLeft: Radius.circular(15))
+        color: Colors.white,
+        borderRadius: BorderRadius.only(topRight: Radius.circular(15),topLeft: Radius.circular(15))
       ),
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -100,26 +102,26 @@ class _BottomSheetMultiSelectState<T> extends State<BottomSheetMultiSelect<T>> {
           Row(
             children: [
               Expanded(
-                child: TextButton(
+                child: Button(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const TextApp('Cancel'),
+                  child: const TextApp('cancel'),
                 ),
               ),
               const SizedBox(
                 width: 10,
               ),
               Expanded(
-                child: TextButton(
+                child: Button(
                     onPressed: () {
                       var listData = list.where((element) => element.selected);
-                      if(listData.toList().isNotEmpty){
+                      // if(listData.toList().isNotEmpty){
                         var result = listData.map((e) => e.data).toList();
                         Navigator.pop(context, result);
-                      }
+                      // }
                     },
-                    child: const TextApp('Confirm')),
+                    child: const TextApp('confirm'),),
               ),
             ],
           ),
