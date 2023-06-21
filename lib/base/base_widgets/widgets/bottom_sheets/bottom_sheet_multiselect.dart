@@ -1,5 +1,3 @@
-
-
 import 'package:base_package/base/base.dart';
 
 class BottomSheetData<T> {
@@ -25,27 +23,48 @@ class BottomSheetData<T> {
   });
 }
 
-Future<List<T>?> showMultiSelectBottomSheet<T>(
-    BuildContext context, List<BottomSheetData<T>> list,
-    {String? title}) {
+Future<List<T>?> showMultiSelectBottomSheet<T>({
+  required BuildContext context,
+  required List<T> listData,
+  required List<T> listCurrent,
+  required bool Function(T itemSelect, T item) conditionSelect,
+  required String Function(T data) displayText,
+  String? title,
+}) {
   return showModalBottomSheet(
     backgroundColor: Colors.transparent,
     context: context,
     enableDrag: true,
     builder: (context) {
-      return BottomSheetMultiSelect<T>(list: list, title: title);
+      return BottomSheetMultiSelect<T>(
+        list: listData,
+        listCurrent: listCurrent,
+        title: title,
+        displayText: displayText,
+        conditionSelect: conditionSelect,
+      );
     },
   );
 }
 
 class BottomSheetMultiSelect<T> extends StatefulWidget {
-  final List<BottomSheetData<T>> list;
+  final List<T> list;
+  final List<T> listCurrent;
+  final bool Function(T itemSelect, T item) conditionSelect;
+  final String Function(T data) displayText;
   final String? title;
-  const BottomSheetMultiSelect({Key? key, required this.list, this.title})
+  const BottomSheetMultiSelect(
+      {Key? key,
+      required this.list,
+      this.title,
+      required this.listCurrent,
+      required this.conditionSelect,
+      required this.displayText})
       : super(key: key);
 
   @override
-  State<BottomSheetMultiSelect<T>> createState() => _BottomSheetMultiSelectState<T>();
+  State<BottomSheetMultiSelect<T>> createState() =>
+      _BottomSheetMultiSelectState<T>();
 }
 
 class _BottomSheetMultiSelectState<T> extends State<BottomSheetMultiSelect<T>> {
@@ -54,7 +73,19 @@ class _BottomSheetMultiSelectState<T> extends State<BottomSheetMultiSelect<T>> {
   @override
   void initState() {
     super.initState();
-    list = widget.list;
+    // list = widget.list;
+
+    list = widget.list.map((element) {
+      var selected = false;
+      for (var i in widget.listCurrent) {
+        if (widget.conditionSelect(i, element)) {
+          selected = true;
+          break;
+        }
+      }
+      return BottomSheetData(
+          data: element, text: widget.displayText(element), selected: selected);
+    }).toList();
   }
 
   @override
@@ -62,9 +93,9 @@ class _BottomSheetMultiSelectState<T> extends State<BottomSheetMultiSelect<T>> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(topRight: Radius.circular(15),topLeft: Radius.circular(15))
-      ),
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(15), topLeft: Radius.circular(15))),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -72,8 +103,7 @@ class _BottomSheetMultiSelectState<T> extends State<BottomSheetMultiSelect<T>> {
             const SizedBox(
               height: 25,
             ),
-            TextApp(
-                 widget.title!, fontWeight: FontWeight.bold, fontSize: 18),
+            TextApp(widget.title!, fontWeight: FontWeight.bold, fontSize: 18),
             const SizedBox(
               height: 20,
             ),
@@ -114,14 +144,15 @@ class _BottomSheetMultiSelectState<T> extends State<BottomSheetMultiSelect<T>> {
               ),
               Expanded(
                 child: Button(
-                    onPressed: () {
-                      var listData = list.where((element) => element.selected);
-                      // if(listData.toList().isNotEmpty){
-                        var result = listData.map((e) => e.data).toList();
-                        Navigator.pop(context, result);
-                      // }
-                    },
-                    child: const TextApp('confirm'),),
+                  onPressed: () {
+                    var listData = list.where((element) => element.selected);
+                    // if(listData.toList().isNotEmpty){
+                    var result = listData.map((e) => e.data).toList();
+                    Navigator.pop(context, result);
+                    // }
+                  },
+                  child: const TextApp('confirm'),
+                ),
               ),
             ],
           ),

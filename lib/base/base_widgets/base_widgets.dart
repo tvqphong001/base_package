@@ -17,7 +17,14 @@ export 'widgets/divider_dash.dart';
 export 'widgets/app_text.dart';
 export 'widgets/back_button.dart';
 export 'widgets/item_page_alive.dart';
-// export 'widgets/custom_tabbar.dart';
+export 'widgets/sized_box_app.dart';
+export 'widgets/simple_statefull_widget.dart';
 
 // menu
 export 'widgets/menu/menu_app.dart';
+
+// dialog
+export 'widgets/dialog/dialogs.dart';
+
+// custom controller
+export 'widgets/textfield/customer_controller/selectable_controller.dart';

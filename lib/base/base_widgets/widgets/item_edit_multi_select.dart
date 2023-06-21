@@ -45,22 +45,12 @@ class ItemEditMultiSelect<T> extends StatelessWidget {
         ),
         Button(
           onPressed: () async {
-            var list = listData.map((element) {
-              var selected = false;
-              for (var i in listDataSelect) {
-                if (conditionSelect(i, element)) {
-                  selected = true;
-                  break;
-                }
-              }
-              return BottomSheetData(
-                  data: element,
-                  text: displayText(element),
-                  selected: selected);
-            }).toList();
             var result = await showMultiSelectBottomSheet<T>(
-              context,
-              list,
+              context:context,
+              listData:listData,
+              listCurrent: listDataSelect,
+              conditionSelect: conditionSelect,
+              displayText: displayText,
               title: title,
             );
             var condition = emptyResult ? true : result?.isNotEmpty ?? false;

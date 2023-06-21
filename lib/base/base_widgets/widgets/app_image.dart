@@ -149,17 +149,12 @@ class AppImage extends StatelessWidget {
           maxWidthDiskCache: 350,
           memCacheWidth: 100,
           colorBlendMode: colorBlendMode,
+          placeholder: (context, url) => const CircularProgressIndicator(),
           errorWidget: (context, url, error) => Container(
                 padding: const EdgeInsets.all(10),
                 color: color,
                 child: const Text('error load'),
               ),
-          placeholder: (context, url) => const Text(
-              'place holder') /*Image.asset(
-          Images.loading,
-          width: 30,
-          height: 30,
-        ),*/
           );
     } else {
       // common

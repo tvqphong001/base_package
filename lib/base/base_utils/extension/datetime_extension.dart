@@ -1,6 +1,12 @@
 import 'package:base_package/base/base.dart';
 import 'package:intl/intl.dart';
 
+extension DateTimeBaseEx on DateTime? {
+
+  String? get toUtcString => this?.toUtc().toIso8601String();
+  String? get toStringUtcIso8601String => this?.toUtc().toIso8601String();
+}
+
 final appDateFormat =DateFormat("dd/MM/yyyy", "vi_VI");
 extension AppDateTime on DateTime {
   static final _shortDateFormat = DateFormat("dd/MM", "vi_VI");
@@ -25,7 +31,6 @@ extension AppDateTime on DateTime {
     return defaultValue;
   }
 
-  String get toUtcString => toUtc().toIso8601String();
 
   String get monthYear {
     return month.toString().padLeft(2, '0') +'/' + year.toString();
