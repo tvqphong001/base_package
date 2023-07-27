@@ -1,6 +1,11 @@
 import '../../base.dart';
+import 'package:diacritic/diacritic.dart';
 
 extension StringExNull on String?{
+  String get removeDiacritic {
+    return removeDiacritics(this??'');
+  }
+
   bool get isEmptyOrNull {
     if(this == null){
       return true;
@@ -46,6 +51,11 @@ extension StringEx on String{
 
   double get moneyToDouble{
     return double.tryParse(replaceAll(',', '').replaceAll('.', '').replaceAll(appCurrency, ''))??0;
+  }
+
+  num get moneyToNum{
+    var money =  num.tryParse(replaceAll(',', ''))??0;
+    return money;
   }
 
   bool get isTrimEmpty {

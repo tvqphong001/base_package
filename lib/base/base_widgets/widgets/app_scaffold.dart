@@ -1,9 +1,7 @@
-import 'package:flutter/services.dart';
-
 import '../../base.dart';
 
 
-class MyScaffold extends StatelessWidget {
+class AppScaffold extends StatelessWidget {
   final Widget body;
   final double? padding;
   final double? paddingHorizontal;
@@ -11,6 +9,8 @@ class MyScaffold extends StatelessWidget {
   final AppBar? appBar;
   final bool enableScrollContent;
   final Widget? bottomButton;
+  final Widget? bottomContainer;
+  final Widget? topContainer;
   final Widget? bottomNavigationBar;
   final Color? backgroundColor;
   final Widget? floatingActionButton;
@@ -22,7 +22,7 @@ class MyScaffold extends StatelessWidget {
   final Function(bool)? onDrawerChanged;
   final Function(bool)? onEndDrawerChanged;
   final GlobalKey<ScaffoldState>? scaffoldKey;
-  const MyScaffold({
+  const AppScaffold({
     Key? key,
     required this.body,
     this.paddingHorizontal,
@@ -31,6 +31,8 @@ class MyScaffold extends StatelessWidget {
     this.extendBody = false,
     this.enableScrollContent = false,
     this.bottomButton,
+    this.bottomContainer,
+    this.topContainer,
     this.bottomNavigationBar,
     this.backgroundColor,
     this.paddingVertical,
@@ -38,6 +40,7 @@ class MyScaffold extends StatelessWidget {
     this.floatingActionButton,
     this.paddingStatusBar = true, this.drawer, this.onDrawerChanged, this.scaffoldKey, this.endDrawer, this.onEndDrawerChanged,
   })  : assert(padding == null || (paddingHorizontal == null && paddingVertical == null)),
+        assert(bottomContainer == null || bottomButton == null),
         super(key: key);
 
   @override
@@ -69,6 +72,7 @@ class MyScaffold extends StatelessWidget {
                     : EdgeInsets.all(padding ?? paddingApp),
                 child: Column(
                   children: [
+                    if(topContainer!= null) topContainer!,
                     // if (appBar == null)
                     //   SizedBox(
                     //     height: paddingStatusBar ? ScreenHelper.statusBar : 0,
@@ -81,7 +85,8 @@ class MyScaffold extends StatelessWidget {
                             )
                           : body,
                     ),
-                    if (bottomButton != null) ...[
+                    if(bottomContainer != null)bottomContainer!,
+                    if (bottomButton != null && bottomContainer == null) ...[
                       const SizedBox(
                         height: 10,
                       ),

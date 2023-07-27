@@ -11,6 +11,19 @@ class AppDropDownButton<T> extends StatelessWidget {
   final Widget? customButton;
   final Function(T)? onChange;
   final List<double>? customItemsHeights;
+  // final bool _colItem;
+  //
+  // const AppDropDownButton.colItem({
+  //   Key? key,
+  //   this.hint,
+  //   this.value,
+  //   required this.items,
+  //   this.onChange,
+  //   this.hintWidget,
+  //   this.customButton,
+  //   this.customItemsHeights
+  //   }) : _colItem = true;
+
   const AppDropDownButton(
       {Key? key,
       this.hint,
@@ -20,14 +33,21 @@ class AppDropDownButton<T> extends StatelessWidget {
         this.hintWidget,
       this.customButton,
       this.customItemsHeights})
-      : super(key: key);
+      :  super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
+
       child: DropdownButton2(
+        buttonWidth: double.infinity,
+        // dropdownPadding: EdgeInsets.zero,
+        buttonPadding: EdgeInsets.zero,
+        // itemPadding: EdgeInsets.zero,
+
         buttonSplashColor: Colors.transparent,
         value: value,
+
         hint: hintWidget??TextApp(hint ?? ''),
         onMenuStateChange: (value) {},
         items: items,
@@ -97,6 +117,7 @@ class DropDownBelowButton<T> extends StatelessWidget {
         ),
         boxWidth: width,
         value: value,
+
         items: listValue.map((prefix) {
           return DropdownMenuItem<DropDownData<T>?>(
             value: prefix,

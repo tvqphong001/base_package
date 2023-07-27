@@ -27,6 +27,8 @@ Future<bool?> showDialogYesNo({
         onTapFuture: onTapFuture,
         onTapCancelFuture: onTapCancelFuture,
         onTapCancel: onTapCancel,
+        okButtonBuilder: okButtonBuilder,
+        cancelButtonBuilder: cancelButtonBuilder,
         title: title,
         description: description,
         okText: okText,
@@ -127,40 +129,43 @@ class AlertPopup extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: okButtonBuilder != null
-                      ? okButtonBuilder!(context)
-                      : Button(
-                          onPressed: () async {
-                            if (onTapFuture != null) {
-                              await onTapFuture!();
-                              Navigator.pop(context, true);
-                            } else if (onTap == null) {
-                              Navigator.pop(context, true);
-                            } else {
-                              onTap?.call();
-                            }
-                          },
-                          child: Text(okText ?? 'OK'),
-                        ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
+
                 Expanded(
                   child: cancelButtonBuilder != null
                       ? cancelButtonBuilder!(context)
                       : Button(
-                          onPressed: () {
-                            if (onTapCancel == null) {
-                              Navigator.pop(context, false);
-                            } else {
-                              onTapCancel?.call();
-                            }
-                          },
-                          child: TextApp(cancelText ?? 'Cancel'),
-                        ),
-                )
+                    onPressed: () {
+                      if (onTapCancel == null) {
+                        Navigator.pop(context, false);
+                      } else {
+                        onTapCancel?.call();
+                      }
+                    },
+                    child: TextApp(cancelText ?? 'Cancel'),
+                  ),
+                ),
+
+                const SizedBox(
+                  width: 10,
+                ),
+
+                Expanded(
+                  child: okButtonBuilder != null
+                      ? okButtonBuilder!(context)
+                      : Button(
+                    onPressed: () async {
+                      if (onTapFuture != null) {
+                        await onTapFuture!();
+                        Navigator.pop(context, true);
+                      } else if (onTap == null) {
+                        Navigator.pop(context, true);
+                      } else {
+                        onTap?.call();
+                      }
+                    },
+                    child: Text(okText ?? 'OK'),
+                  ),
+                ),
               ],
             )
           ],

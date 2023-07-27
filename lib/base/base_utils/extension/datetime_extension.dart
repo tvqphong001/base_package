@@ -8,6 +8,7 @@ extension DateTimeBaseEx on DateTime? {
 }
 
 final appDateFormat =DateFormat("dd/MM/yyyy", "vi_VI");
+
 extension AppDateTime on DateTime {
   static final _shortDateFormat = DateFormat("dd/MM", "vi_VI");
   static final dateFormat = appDateFormat;
@@ -100,3 +101,5 @@ extension AppDateTime on DateTime {
   }
 
 }
+
+String get timeId => '_${DateTime.now().millisecondsSinceEpoch.toString()}';

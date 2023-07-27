@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'dart:math' as math;
 
 bool hasTextOverflow(
     String text,
@@ -44,3 +45,7 @@ showToast(String message){
       fontSize: 24.0
   );
 }
+
+final rnd = math.Random();
+
+Color getRandomColor() => Color(rnd.nextInt(0xffffffff));

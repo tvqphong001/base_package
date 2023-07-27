@@ -4,6 +4,10 @@ extension NumEx on num{
   String toMoney([bool? haveCurrency, String? currency]) {
     return formatToMoney(this,haveCurrency,currency);
   }
+
+  String toMoneyLocale({String? locale, String? symbol, bool hideSymbol = false}) {
+    return formatToMoneyLocale(this,locale: locale,symbol: symbol);
+  }
 }
 
 extension NumExNull on num?{

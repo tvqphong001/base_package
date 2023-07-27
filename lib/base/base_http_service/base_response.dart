@@ -71,6 +71,18 @@ class PageData {
   }
 }
 
+class MetaDataResp{
+  final int totalPages;
+  final int totalRecords;
+
+  const MetaDataResp(this.totalPages, this.totalRecords);
+
+  factory MetaDataResp.formJson(Response resp){
+    var meta = resp.data['meta'];
+    return MetaDataResp(meta['totalPages'], meta['totalRecords']);
+  }
+}
+
 class Paginate<T> extends Equatable{
   final List<T> list;
   final int currentPage;
@@ -94,17 +106,27 @@ class Paginate<T> extends Equatable{
     if(data == null) return this;
     return Paginate(
       list: [...this.list,...data.list],
-      totalRecords: this.totalRecords,
-      totalPages: this.totalPages,
+      totalRecords: data.totalRecords,
+      totalPages: data.totalPages,
       currentPage: data.currentPage,
     );
   }
 
   Paginate<T> updateList({List<T>? list}){
-
     return Paginate(
       list: [...list??[]],
       totalRecords: this.totalRecords,
+      totalPages: this.totalPages,
+      currentPage: this.currentPage,
+    );
+  }
+
+  Paginate<T> insertItem2List({required T item, int index = 0}){
+    var list = [...this.list];
+    list.insert(index, item);
+    return Paginate(
+      list: list,
+      totalRecords: (this.totalRecords??0) + 1,
       totalPages: this.totalPages,
       currentPage: this.currentPage,
     );
@@ -114,8 +136,8 @@ class Paginate<T> extends Equatable{
   List<Object?> get props => [list];
 }
 
-typedef ApiResponseType<T> = T Function(Response);
-typedef ApiResponseFunc<T> = ApiResponse<T> Function(Response);
+typedef ApiResponseType<T> = T Function(Response resp);
+typedef ApiResponseFunc<T> = ApiResponse<T> Function(Response resp);
 
 Future<ApiResponse<T>> handleAPIResponse<T>(
     {Response? response,

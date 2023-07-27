@@ -21,6 +21,25 @@ class JsonStringToInt implements JsonConverter<int, dynamic> {
   int toJson(int object) => object;
 }
 
+class JsonToNum implements JsonConverter<num, dynamic> {
+  const JsonToNum();
+
+  @override
+  num fromJson(dynamic json) {
+    if (json is num) {
+      return json;
+    }
+    try{
+      return num.tryParse(json) ?? 0;
+    }catch(e){
+      return 0;
+    }
+  }
+
+  @override
+  num toJson(num object) => object;
+}
+
 class JsonConvertToString implements JsonConverter<String, dynamic> {
   const JsonConvertToString();
 
