@@ -1,4 +1,5 @@
 import '../../base.dart';
+import 'dart:ui' as ui;
 
 class TextApp extends StatelessWidget {
   final String text;
@@ -13,6 +14,7 @@ class TextApp extends StatelessWidget {
   final double? height;
   final double? fontSize;
   final FontWeight? fontWeight;
+  final List<ui.Shadow>? shadows;
   final Color? color;
   final TextStyle? style;
   final String? fontFamily;
@@ -36,6 +38,7 @@ class TextApp extends StatelessWidget {
         this.letterSpacing,
         this.decorationColor,
         this.decorationThickness,
+        this.shadows,
       }) : super(key: key);
 
   @override
@@ -52,6 +55,7 @@ class TextApp extends StatelessWidget {
             fontSize: fontSize,
             fontWeight: fontWeight,
             color: color,
+            shadows: shadows,
             fontStyle: fontStyle,
             decoration: textDecoration,
             decorationColor: decorationColor,
