@@ -7,6 +7,8 @@ class TextApp extends StatelessWidget {
   final TextOverflow? textOverflow;
   final FontStyle? fontStyle;
   final TextDecoration? textDecoration;
+  final Color? decorationColor;
+  final double? decorationThickness;
   final bool? softWrap;
   final double? height;
   final double? fontSize;
@@ -17,22 +19,24 @@ class TextApp extends StatelessWidget {
   final double? letterSpacing;
 
   const TextApp(
-    this.text, {
-    Key? key,
-    this.fontSize,
-    this.color,
-    this.fontWeight,
-    this.textAlign,
-    this.maxLines,
-    this.textOverflow,
-    this.height,
-    this.textDecoration,
-    this.softWrap,
-    this.fontStyle,
-    this.style,
+      this.text, {
+        Key? key,
+        this.fontSize,
+        this.color,
+        this.fontWeight,
+        this.textAlign,
+        this.maxLines,
+        this.textOverflow,
+        this.height,
+        this.textDecoration,
+        this.softWrap,
+        this.fontStyle,
+        this.style,
         this.fontFamily,
         this.letterSpacing,
-  }) : super(key: key);
+        this.decorationColor,
+        this.decorationThickness,
+      }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +54,8 @@ class TextApp extends StatelessWidget {
             color: color,
             fontStyle: fontStyle,
             decoration: textDecoration,
+            decorationColor: decorationColor,
+            decorationThickness : decorationThickness,
             fontFamily: fontFamily,
             letterSpacing: letterSpacing,
             height: height,

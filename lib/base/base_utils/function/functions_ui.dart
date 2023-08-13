@@ -48,4 +48,4 @@ showToast(String message){
 
 final rnd = math.Random();
 
-Color getRandomColor() => Color(rnd.nextInt(0xffffffff));
+Color get getRandomColor => Color(rnd.nextInt(0xffffffff));
