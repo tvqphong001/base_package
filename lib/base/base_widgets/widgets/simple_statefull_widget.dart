@@ -1,16 +1,16 @@
 import 'package:base_package/base/base.dart';
 
-class PageStatefull extends StatefulWidget {
+class PageStateful extends StatefulWidget {
   final Widget child;
   final VoidCallback onInit;
-  const PageStatefull({Key? key, required this.child, required this.onInit})
+  const PageStateful({Key? key, required this.child, required this.onInit})
       : super(key: key);
 
   @override
-  State<PageStatefull> createState() => _PageStatefullState();
+  State<PageStateful> createState() => _PageStatefulState();
 }
 
-class _PageStatefullState extends State<PageStatefull> {
+class _PageStatefulState extends State<PageStateful> {
   @override
   void initState() {
     super.initState();

@@ -3,6 +3,7 @@ library base_package;
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
+
 // base
 export 'base_widgets/base_widgets.dart';
 export 'base_utils/base_utils.dart';
@@ -25,6 +26,9 @@ export 'package:flutter/material.dart' hide RefreshIndicator;
 export 'package:flutter_svg/flutter_svg.dart';
 export 'package:flutter/services.dart';
 export 'package:url_launcher/url_launcher.dart';
+
+// utils
+export 'package:base_package/base/base_utils/log/log.dart';
 
 
 // global func and parameter

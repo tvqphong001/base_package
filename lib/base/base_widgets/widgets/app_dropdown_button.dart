@@ -11,6 +11,8 @@ class AppDropDownButton<T> extends StatelessWidget {
   final Widget? customButton;
   final Function(T)? onChange;
   final List<double>? customItemsHeights;
+  final EdgeInsets? buttonPadding;
+  final EdgeInsets? itemPadding;
   // final bool _colItem;
   //
   // const AppDropDownButton.colItem({
@@ -32,7 +34,9 @@ class AppDropDownButton<T> extends StatelessWidget {
       this.onChange,
         this.hintWidget,
       this.customButton,
-      this.customItemsHeights})
+      this.customItemsHeights,
+      this.buttonPadding,
+      this.itemPadding})
       :  super(key: key);
 
   @override
@@ -42,8 +46,10 @@ class AppDropDownButton<T> extends StatelessWidget {
       child: DropdownButton2(
         buttonWidth: double.infinity,
         // dropdownPadding: EdgeInsets.zero,
-        buttonPadding: EdgeInsets.zero,
+        // buttonPadding: EdgeInsets.zero,
+        buttonPadding: buttonPadding??EdgeInsets.symmetric(horizontal: 20),
         // itemPadding: EdgeInsets.zero,
+        itemPadding: itemPadding??EdgeInsets.symmetric(horizontal: 20),
 
         buttonSplashColor: Colors.transparent,
         value: value,
