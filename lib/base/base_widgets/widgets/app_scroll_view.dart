@@ -1,9 +1,9 @@
 import '../../base.dart';
 import 'dart:math' as math;
 
-class AppScrollView extends StatelessWidget {
+class AppSingleChildScrollView extends StatelessWidget {
   final Widget child;
-  const AppScrollView({Key? key, required this.child}) : super(key: key);
+  const AppSingleChildScrollView({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
