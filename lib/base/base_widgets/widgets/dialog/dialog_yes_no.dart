@@ -73,8 +73,8 @@ class AlertPopup extends StatelessWidget {
       insetPadding: const EdgeInsets.symmetric(horizontal: 30),
       child: Padding(
         padding: const EdgeInsets.only(
-          left: paddingApp,
-          right: paddingApp,
+          left: 16,
+          right: 16,
           bottom: 24,
         ),
         child: Column(

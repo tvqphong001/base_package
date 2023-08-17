@@ -69,7 +69,7 @@ class AppScaffold extends StatelessWidget {
               child: Padding(
                 padding: padding == null
                     ? EdgeInsets.symmetric(horizontal: paddingHorizontal ?? 0, vertical: paddingVertical ?? 0)
-                    : EdgeInsets.all(padding ?? paddingApp),
+                    : EdgeInsets.all(padding ?? 16),
                 child: Column(
                   children: [
                     if(topContainer!= null) topContainer!,

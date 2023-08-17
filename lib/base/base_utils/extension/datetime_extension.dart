@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 extension DateTimeBaseEx on DateTime? {
 
   String? get toUtcString => this?.toUtc().toIso8601String();
-  String? get toStringUtcIso8601String => this?.toUtc().toIso8601String();
+  String get toStringUtcIso8601String => this?.toUtc().toIso8601String()??'';
 }
 
 final appDateFormat =DateFormat("dd/MM/yyyy", "vi_VI");
@@ -98,6 +98,14 @@ extension AppDateTime on DateTime {
       return DateFormat('dd/MM/yyyy', locale.languageCode).format(this);
     }
     return DateFormat('MM/dd/yyyy', locale.languageCode).format(this);
+  }
+
+  DateTime get startTimeOfDate {
+    return DateTime(year,month,day);
+  }
+
+  DateTime get endTimeOfDate {
+    return startTimeOfDate.add(const Duration(days: 1)).subtract(const Duration(microseconds: 1));
   }
 
 }
