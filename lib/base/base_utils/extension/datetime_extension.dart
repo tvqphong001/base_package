@@ -111,3 +111,4 @@ extension AppDateTime on DateTime {
 }
 
 String get timeId => '_${DateTime.now().millisecondsSinceEpoch.toString()}';
+int get timeIdInt => DateTime.now().millisecondsSinceEpoch;

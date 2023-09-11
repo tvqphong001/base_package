@@ -4,13 +4,17 @@ import 'dart:math' as math;
 class AppSingleChildScrollView extends StatelessWidget {
   final Widget child;
   final EdgeInsets? padding;
-  const AppSingleChildScrollView({Key? key, required this.child, this.padding}) : super(key: key);
+  final ScrollController? controller;
+  final double? bottomPadding;
+  final double? topPadding;
+  const AppSingleChildScrollView({Key? key, required this.child, this.padding,this.controller,this.bottomPadding,this.topPadding}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppShaderMask(
       child: SingleChildScrollView(
-        padding: padding?.copyWith(bottom: 40,top: 20)??defaultShaderPadding,
+        controller: controller,
+        padding: padding?.copyWith(bottom: bottomPadding??40,top: topPadding??20)??defaultShaderPadding,
         child: child,
       ),
     );

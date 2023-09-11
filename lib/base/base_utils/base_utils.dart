@@ -8,3 +8,4 @@ export 'log/log.dart';
 export 'convert/app_json_converter.dart';
 
 export 'ui/physical_scroll/physical.dart';
+export 'ui/text_span.dart';

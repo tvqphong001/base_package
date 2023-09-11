@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import '../../../base/base.dart';
@@ -23,10 +24,11 @@ class ApiResponse<DATA> {
 class ApiError {
   final Object? error;
   final int? code;
+  final String? codeString;
   final String? title;
   final String? detail;
 
-  const ApiError({this.code, this.title, this.detail,this.error});
+  const ApiError({this.code, this.title, this.detail,this.error,this.codeString});
 
   bool get permissionError => code == 3015;
 
@@ -38,9 +40,11 @@ class ApiError {
 
   factory ApiError.fromJson(Map<dynamic, dynamic> json) {
     int mCode = -1;
+    String? mCodeString ;
     try {
       if (json['code'] is String) {
         var jCode = json['code']??'';
+        mCodeString = json['code'];
         mCode = int.parse((jCode as String).replaceAll('E_', ''));
       } else if (json['code'] is int) {
         mCode = json['code'];
@@ -48,7 +52,7 @@ class ApiError {
     } catch (e) {
       print('ApiError.fromJson $e');
     }
-    return ApiError(code: mCode, title: json['title'], detail: json['detail']);
+    return ApiError(code: mCode, title: json['title'], detail: json['detail'],codeString: mCodeString);
   }
 }
 
@@ -192,20 +196,44 @@ Future<ApiResponse<T>> handleAPIResponse<T>(
     log(e.toString(),stackTrace: stack);
     if (e is DioError) {
       var mResp = e.response;
+
+      var apiError = ApiError(
+        code: mResp?.statusCode,
+        detail: e.toString(),
+        error: e,
+        title: mResp?.statusMessage,);
+
+      steamHandleAPIResponse?.add(apiError);
+
       return ApiResponse(
           statusCode: mResp?.statusCode,
-          apiError: ApiError(
-              code: mResp?.statusCode,
-              detail: e.toString(),
-              error: e,
-              title: mResp?.statusMessage,));
+          apiError: apiError,);
     }
+
+    var apiError = ApiError(
+        code: response?.statusCode,
+        detail: e.toString(),
+        error: e,
+        title: response?.statusMessage);
+
+    steamHandleAPIResponse?.add(apiError);
+
     return ApiResponse(
         statusCode: response?.statusCode,
-        apiError: ApiError(
-            code: response?.statusCode,
-            detail: e.toString(),
-            error: e,
-            title: response?.statusMessage));
+        apiError: apiError);
   }
+}
+
+StreamController<ApiError>? steamHandleAPIResponse; //  when use this stream, need dispose when don't use
+
+void initAndListenStreamAPIResponse({required ValueChanged<ApiError> onChange}){
+  steamHandleAPIResponse = StreamController();
+  steamHandleAPIResponse?.stream.listen((event) {
+    onChange(event);
+  });
+}
+
+void disposeStreamAPIResponse(){
+  steamHandleAPIResponse?.close();
+  steamHandleAPIResponse = null;
 }

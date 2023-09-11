@@ -15,6 +15,8 @@ class AppImage extends StatelessWidget {
   final BlendMode? colorBlendMode;
   final bool isFile;
   final bool isNetwork;
+  final bool isNetworkMax;
+
   const AppImage(
     this.data, {
     Key? key,
@@ -29,6 +31,7 @@ class AppImage extends StatelessWidget {
         dataMemory = null,
         isFile = false,
         file = null,
+        isNetworkMax= false,
         super(key: key);
 
   const AppImage.asset(
@@ -45,6 +48,7 @@ class AppImage extends StatelessWidget {
         isFile = false,
         isNetwork = false,
         file = null,
+        isNetworkMax= false,
         super(key: key);
 
   const AppImage.memory(
@@ -61,6 +65,7 @@ class AppImage extends StatelessWidget {
         isFile = false,
         isNetwork = false,
         file = null,
+        isNetworkMax= false,
         super(key: key);
 
   const AppImage.pathFile(
@@ -77,6 +82,7 @@ class AppImage extends StatelessWidget {
         dataMemory = null,
         isNetwork = false,
         file = null,
+        isNetworkMax= false,
         super(key: key);
 
   const AppImage.file(
@@ -93,6 +99,7 @@ class AppImage extends StatelessWidget {
         data = '',
         dataMemory = null,
         isNetwork = false,
+        isNetworkMax= false,
         super(key: key);
 
   const AppImage.network(
@@ -109,6 +116,24 @@ class AppImage extends StatelessWidget {
         dataMemory = null,
         isNetwork = true,
         file = null,
+        isNetworkMax= false,
+        super(key: key);
+
+  const AppImage.networkMax(
+      this.data, {
+        Key? key,
+        this.fit = BoxFit.contain,
+        this.height,
+        this.colorBlendMode,
+        this.width,
+        this.color,
+        this.size,
+      })  : isMemory = false,
+        isFile = false,
+        dataMemory = null,
+        isNetwork = true,
+        file = null,
+        isNetworkMax= true,
         super(key: key);
 
   @override
@@ -145,18 +170,21 @@ class AppImage extends StatelessWidget {
           imageUrl: data,
           color: color,
           fit: fit,
-          maxHeightDiskCache: 350,
-          maxWidthDiskCache: 350,
-          memCacheWidth: 100,
+          maxHeightDiskCache: isNetworkMax? null : 350,
+          maxWidthDiskCache: isNetworkMax? null : 350,
+          memCacheWidth: isNetworkMax? null :100,
           colorBlendMode: colorBlendMode,
-          placeholder: (context, url) => const CircularProgressIndicator(),
+          placeholder: (context, url) => isNetworkMax ? const SizedBox() :const CircularProgressIndicator(),
           errorWidget: (context, url, error) => Container(
                 padding: const EdgeInsets.all(10),
                 color: color,
                 child: const Text('error load'),
               ),
           );
-    } else {
+    }
+    else if(data == null){
+      widget = SizedBox();
+    }else {
       // common
       var splitPath = data.split('.');
 

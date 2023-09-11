@@ -2,6 +2,10 @@ import '../../base.dart';
 import 'package:diacritic/diacritic.dart';
 
 extension StringExNull on String?{
+
+  double get toDouble{
+    return double.tryParse(this??'')??0.0;
+  }
   String get removeDiacritic {
     return removeDiacritics(this??'');
   }

@@ -4,21 +4,21 @@ import '../../base.dart';
 
 bool isLoading = false;
 
-void showLoading() {
+void showLoading([BuildContext? context]) {
   if (isLoading) return;
   isLoading = true;
   showDialog(
-      context: currentContext,
+      context: context??currentContext,
       barrierColor: Colors.grey.withOpacity(0.6),
       builder: (context) {
         return const Loading2();
       });
 }
 
-void hideLoading() {
+void hideLoading([BuildContext? context]) {
   if (isLoading) {
     isLoading = false;
-    pop();
+    pop(context);
   }
 }
 

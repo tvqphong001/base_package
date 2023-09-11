@@ -22,6 +22,7 @@ class AppScaffold extends StatelessWidget {
   final Function(bool)? onDrawerChanged;
   final Function(bool)? onEndDrawerChanged;
   final GlobalKey<ScaffoldState>? scaffoldKey;
+  final bool? bottomSafeArea;
   const AppScaffold({
     Key? key,
     required this.body,
@@ -38,6 +39,7 @@ class AppScaffold extends StatelessWidget {
     this.paddingVertical,
     this.padding,
     this.floatingActionButton,
+    this.bottomSafeArea,
     this.paddingStatusBar = true, this.drawer, this.onDrawerChanged, this.scaffoldKey, this.endDrawer, this.onEndDrawerChanged,
   })  : assert(padding == null || (paddingHorizontal == null && paddingVertical == null)),
         assert(bottomContainer == null || bottomButton == null),
@@ -51,7 +53,7 @@ class AppScaffold extends StatelessWidget {
       ),
       child: SafeArea(
         top: false,
-        bottom: true,
+        bottom: bottomSafeArea??true,
         child: Scaffold(
             resizeToAvoidBottomInset: resizeToAvoidBottomInset,
             appBar: appBar,

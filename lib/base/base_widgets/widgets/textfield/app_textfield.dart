@@ -26,6 +26,8 @@ class AppTextField<T> extends StatefulWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final String? hint;
+  final String? labelText;
+  final Widget? label;
   final List<SelectableData<T>>? item;
   final AppTextFieldType type;
   final TextInputType? keyboardType;
@@ -38,6 +40,7 @@ class AppTextField<T> extends StatefulWidget {
   final InputBorder? inputBorder;
   final TextStyle? textStyle;
   final String? initText;
+  final bool? autofocus;
 
   const AppTextField({
     Key? key,
@@ -60,6 +63,9 @@ class AppTextField<T> extends StatefulWidget {
     this.prefixIcon,
     this.textStyle, this.initText, this.onChange,
     this.backgroundColor,
+    this.labelText,
+    this.label,
+    this.autofocus,
   }) : super(key: key);
 
   const AppTextField.selectable({
@@ -80,6 +86,9 @@ class AppTextField<T> extends StatefulWidget {
     this.prefixIcon,
     this.textStyle, this.initText, this.onChange,
     this.backgroundColor,
+    this.labelText,
+    this.label,
+    this.autofocus,
   })  : onTap = null,
         type = AppTextFieldType.selectable,
         keyboardType = null,
@@ -103,6 +112,9 @@ class AppTextField<T> extends StatefulWidget {
     this.prefixIcon,
     this.textStyle, this.initText, this.onChange,
     this.backgroundColor,
+    this.labelText,
+    this.label,
+    this.autofocus,
   })  : item = null,
         type = AppTextFieldType.onlyTap,
         keyboardType = null,
@@ -146,6 +158,7 @@ class AppTextFieldState extends State<AppTextField> {
         enabled: _enable,
         maxLines: widget.maxLine,
         keyboardType: widget.keyboardType,
+        autofocus: widget.autofocus??false,
         style: widget.textStyle??Theme.of(context).textTheme.bodyMedium,
         onChanged: (value){
           widget.onChange?.call(value);
@@ -154,6 +167,8 @@ class AppTextFieldState extends State<AppTextField> {
             suffixIcon: widget.suffixIcon,
             prefixIcon: widget.prefixIcon,
             contentPadding: widget.contentPadding,
+            labelText: widget.labelText,
+            label: widget.label,
             hintText: widget.hint,
             hintStyle: widget.textStyle == null
                 ? Theme.of(context).textTheme.bodyMedium?.copyWith(color: widget.hintColor,fontStyle: widget.hintStyle)
