@@ -13,6 +13,7 @@ export 'context_extension.dart';
 export 'iterable_extension.dart';
 export 'color_extension.dart';
 export 'textfield_extension.dart';
+export 'validator_ex.dart';
 
 const appCurrency = 'đ';
 const maxMoney = 9.0071993e+15;

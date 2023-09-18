@@ -232,7 +232,7 @@ class AppCircleImage extends StatelessWidget {
             builder: (context,size) {
               return ClipRRect(
                 borderRadius: BorderRadius.circular(size.maxWidth/2),
-                child: AppImage(path,isNetwork: isNetwork),
+                child: isNetwork ? AppImage.networkMax(path,fit: BoxFit.cover) : AppImage(path,fit: BoxFit.cover),
               );
             }
         ),

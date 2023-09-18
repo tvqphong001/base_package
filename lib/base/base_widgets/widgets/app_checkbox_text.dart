@@ -2,6 +2,29 @@ import 'package:flutter/gestures.dart';
 
 import '../../base.dart';
 
+class AppCheckboxOnly extends StatelessWidget {
+  final bool value;
+  final Function(bool? value) onChanged;
+  const AppCheckboxOnly({super.key,required this.value,required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 24,
+      width: 24,
+      child: Checkbox(
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        value: value,
+        onChanged: onChanged,
+        activeColor: const Color(0xff6F61FF),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4)),
+      ),
+    );
+  }
+}
+
+
 class AppCheckbox extends StatefulWidget {
   final bool defaultValue;
   final String? text;
@@ -45,7 +68,7 @@ class _AppCheckboxState extends State<AppCheckbox> {
           activeColor: const Color(0xff6F61FF),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         ),
-        if(widget.widget!=null) widget,
+        if(widget.widget != null) widget,
         if (widget.text != null)
           Expanded(
             child: Column(
@@ -55,7 +78,6 @@ class _AppCheckboxState extends State<AppCheckbox> {
                   height: 8,
                 ),
                 RichText(
-
                   text: TextSpan(style: Theme.of(context).textTheme.bodyMedium, children: [
                     TextSpan(
                         text: widget.text!,

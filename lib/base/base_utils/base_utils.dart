@@ -1,3 +1,5 @@
+import 'package:flutter/scheduler.dart';
+
 export 'regex/regex.dart';
 export 'mixin/mixin.dart';
 export 'extension/extensions.dart';
@@ -9,3 +11,11 @@ export 'convert/app_json_converter.dart';
 
 export 'ui/physical_scroll/physical.dart';
 export 'ui/text_span.dart';
+
+// export 'validator/validators.dart';
+
+void afterLayout({required VoidCallback callback}){
+  SchedulerBinding.instance.addPostFrameCallback((_) {
+    callback();
+  });
+}

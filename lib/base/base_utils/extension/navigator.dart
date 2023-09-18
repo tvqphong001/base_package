@@ -1,4 +1,5 @@
 import '../../base.dart';
+import '../../base.dart' as base;
 
 extension NavigatorEx on BuildContext{
   void pushName(String routeName,{ dynamic arguments}){
@@ -15,5 +16,11 @@ extension NavigatorEx on BuildContext{
 
   void pushReplacementNamed(String routeName,{ dynamic arguments}){
     Navigator.pushReplacementNamed(this, routeName,arguments: arguments);
+  }
+}
+
+extension ExtensionBuildContext on BuildContext{
+  hideKeyBoard(){
+    base.hideKeyBoard(this);
   }
 }

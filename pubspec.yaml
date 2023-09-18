@@ -18,7 +18,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   rxdart: ^0.27.2
   flutter_svg: any
-  image_picker: ^0.8.6
+  image_picker:  ^1.0.4
   intl: any
   url_launcher: any
   flutter_cache_manager: ^3.1.2

@@ -19,3 +19,17 @@ class size extends StatelessWidget {
     );
   }
 }
+
+// ignore: camel_case_types
+class spacer extends StatelessWidget {
+
+  const spacer(
+      {Key? key, })
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Spacer(
+    );
+  }
+}

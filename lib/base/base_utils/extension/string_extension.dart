@@ -10,6 +10,14 @@ extension StringExNull on String?{
     return removeDiacritics(this??'');
   }
 
+  String get trimLowerCase {
+    if(this == null){
+      return '';
+    }
+
+    return this!.trim().toLowerCase().removeDiacritic;
+  }
+
   bool get isEmptyOrNull {
     if(this == null){
       return true;
