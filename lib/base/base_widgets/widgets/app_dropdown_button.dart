@@ -9,7 +9,7 @@ class AppDropDownButton<T> extends StatelessWidget {
   final T? value;
   final List<DropdownMenuItem> items;
   final Widget? customButton;
-  final Function(T)? onChange;
+  final Function(T value)? onChange;
   final List<double>? customItemsHeights;
   final EdgeInsets? buttonPadding;
   final EdgeInsets? itemPadding;

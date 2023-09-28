@@ -36,11 +36,15 @@ class Validators {
     };
   }
 
-  static FormFieldValidator<String> phoneNumberValidator({String? errorText}) {
+  static FormFieldValidator<String> phoneNumberValidator({String? errorText,bool emptyCheck = false}) {
     return (String? value) {
       if (value == null || value.isEmpty) {
-        // return 'PLEASE_PHONE'.tr;
-        return null;
+        if(emptyCheck){
+          return errorText??'Invalid phone number';
+        }else{
+          return null;
+        }
+
       } else {
         if (!regexPhoneNumber.hasMatch(value)) {
           return errorText??'Invalid phone number';
