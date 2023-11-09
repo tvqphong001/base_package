@@ -16,11 +16,15 @@ class TabBarScrollViewWidget extends StatefulWidget {
   final EdgeInsets? paddingListView;
   final Color? tabbarTextColorActive;
   final double? cacheExtent;
+  final double? fontSize;
+  final double? paddingTopListView;
   const TabBarScrollViewWidget({
     super.key,
     required this.children,
     this.tabController,
     required this.listTitleTabBar,
+    this.fontSize,
+    this.paddingTopListView,
     this.onRefresh,
     this.refreshController, this.enablePullDown, this.paddingTabbar, this.tabbarTextColorActive, this.paddingListView, this.cacheExtent,
   }) : assert(children.length == listTitleTabBar.length);
@@ -88,11 +92,12 @@ class _TabBarListViewWidgetState extends State<TabBarScrollViewWidget>
                               color: value.index ==
                                       widget.listTitleTabBar.indexOf(e)
                                   ? widget.tabbarTextColorActive??Colors.blue
-                                  : null),
+                                  : null,fontSize: widget.fontSize),
                         ))
                     .toList(),
               );
             }),
+        Divider(height: 1,),
         Expanded(
           child: SmartRefresher(
             controller: refreshController,
@@ -100,7 +105,8 @@ class _TabBarListViewWidgetState extends State<TabBarScrollViewWidget>
             enablePullDown: widget.enablePullDown??false,
             enablePullUp: false,
             child: ListView(
-              padding: widget.paddingListView?.copyWith(bottom: 30) ??const EdgeInsets.only(
+              padding: widget.paddingListView?.copyWith(bottom: 30,top: widget.paddingTopListView??0) ?? EdgeInsets.only(
+                top: widget.paddingTopListView??0,
                 left: 20,
                 right: 20,
                 bottom: 30

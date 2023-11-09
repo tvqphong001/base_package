@@ -75,3 +75,5 @@ showSnackBarGet(String message,{BuildContext? context}){
 final rnd = math.Random();
 
 Color get getRandomColor => Color(rnd.nextInt(0xffffffff));
+
+int getRandomNumber({required int max,int min = 0}) => rnd.nextInt((max + 1) -min) + min;

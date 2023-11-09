@@ -46,6 +46,7 @@ extension StringEx on String{
   }
 
   String capitalize() {
+    if(this.isEmpty) return '';
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
 

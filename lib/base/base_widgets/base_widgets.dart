@@ -29,3 +29,6 @@ export 'widgets/dialog/dialogs.dart';
 
 // custom controller
 export 'widgets/textfield/customer_controller/selectable_controller.dart';
+
+// getx widget
+export 'widgets_getx/widgets_getx.dart';

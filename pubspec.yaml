@@ -23,7 +23,7 @@ dependencies:
   url_launcher: any
   flutter_cache_manager: ^3.1.2
   pull_to_refresh_flutter3: ^2.0.1
-  device_info_plus: ^8.1.0
+  device_info_plus: ^9.1.0
   fluttertoast: any
   app_settings: ^4.1.8
   permission_handler:

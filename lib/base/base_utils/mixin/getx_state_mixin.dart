@@ -5,7 +5,8 @@ import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 mixin StateMixinExtensions<T> on StateMixin<List<T>> {
   Future handleDataListStatus({
     required Future<ApiResponse<List<T>>> future,
-    List<T> Function(List<T>)? customList
+    List<T> Function(List<T>)? customList,
+    Function? handleError,
   }) async {
     change(null, status: RxStatus.loading());
 
@@ -24,7 +25,11 @@ mixin StateMixinExtensions<T> on StateMixin<List<T>> {
 
       change(list, status: status);
     } else {
-      change(state, status: RxStatus.error(resp.apiError?.detail));
+      if(handleError != null){
+        handleError!();
+      }else{
+        change(state, status: RxStatus.error(resp.apiError?.detail));
+      }
     }
   }
 }
