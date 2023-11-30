@@ -37,7 +37,7 @@ double getWidthText(
   return textPainter.width;
 }
 
-showToast(String message){
+showToast(String message,{double fontSize = 24.0}){
   Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_LONG,
@@ -45,7 +45,7 @@ showToast(String message){
       timeInSecForIosWeb: 1,
       backgroundColor: const Color(0xff838283),
       textColor: Colors.white,
-      fontSize: 24.0
+      fontSize: fontSize
   );
 }
 

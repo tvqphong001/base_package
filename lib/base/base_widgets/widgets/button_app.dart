@@ -23,6 +23,7 @@ class Button extends StatefulWidget {
   final List<BoxShadow>? boxShadow;
   final BoxDecoration? decoration;
   final bool needDelay;
+  final int durationDelay;
 
   const Button(
       {Key? key,
@@ -45,7 +46,8 @@ class Button extends StatefulWidget {
       this.decoration,
       this.size,
         this.width,
-      this.needDelay = true})
+      this.needDelay = true,
+      this.durationDelay = 500})
       : super(key: key);
 
   @override
@@ -85,7 +87,7 @@ class _ButtonState extends State<Button> {
             if (isEnable) {
               widget.onPressed?.call();
               isEnable = false;
-              timer = Timer(const Duration(milliseconds: 500), () {
+              timer = Timer(Duration(milliseconds: widget.durationDelay), () {
                 isEnable = true;
               });
             }

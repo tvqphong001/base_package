@@ -3,12 +3,19 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 mixin StateMixinExtensions<T> on StateMixin<List<T>> {
+  List<T> get statesRequired => state??[];
+
+  final refreshController = RefreshController();
+
   Future handleDataListStatus({
     required Future<ApiResponse<List<T>>> future,
     List<T> Function(List<T>)? customList,
     Function? handleError,
+    bool showLoading = true,
   }) async {
-    change(null, status: RxStatus.loading());
+    if(showLoading){
+      change(null, status: RxStatus.loading());
+    }
 
     var resp = await future;
 
@@ -35,6 +42,9 @@ mixin StateMixinExtensions<T> on StateMixin<List<T>> {
 }
 
 mixin StateMixinPageExtensions<T> on StateMixin<Paginate<T>> {
+
+  Paginate<T> get statesRequired => state??Paginate(list: []);
+
   final refreshController = RefreshController();
 
   Future handleDataPaginateStatus({

@@ -5,18 +5,24 @@ import '../../base.dart';
 class AppCheckboxOnly extends StatelessWidget {
   final bool value;
   final Function(bool? value) onChanged;
-  const AppCheckboxOnly({super.key,required this.value,required this.onChanged});
+  final BorderSide? side;
+  final MaterialStateProperty<Color?>? fillColor;
+  final double? height;
+  final double? width;
+  const AppCheckboxOnly({super.key,required this.value,required this.onChanged, this.side, this.fillColor,this.height = 24,this.width = 24,});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 24,
-      width: 24,
+      height: height,
+      width: width,
       child: Checkbox(
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         value: value,
         onChanged: onChanged,
         activeColor: const Color(0xff6F61FF),
+        fillColor: fillColor,
+        side: side,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4)),
       ),
