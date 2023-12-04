@@ -15,6 +15,7 @@ export 'base_http_service/base_response.dart';
 
 // packages
 export 'package:dio/dio.dart';
+export 'package:get/get.dart' hide FormData,MultipartFile,Response,HeaderValue;
 export 'package:equatable/equatable.dart';
 export 'package:collection/collection.dart';
 export 'package:copy_with_extension/copy_with_extension.dart';

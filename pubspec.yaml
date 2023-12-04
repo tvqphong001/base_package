@@ -13,7 +13,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   dropdown_below: ^1.0.3
-  flutter_lints: ^2.0.0
   cached_network_image: any
   cupertino_icons: ^1.0.2
   rxdart: ^0.27.2
@@ -39,11 +38,12 @@ dependencies:
   diacritic: any
   scroll_to_index: any
   visibility_detector: any
+  copy_with_extension: ^5.0.4
 dev_dependencies:
   flutter_test:
     sdk: flutter
   #    need add below line into your project
-  copy_with_extension_gen: any
+  cop: any
   build_runner: any
   json_serializable: any
 # For information on the generic Dart part of this file, see the
