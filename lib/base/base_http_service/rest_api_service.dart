@@ -3,11 +3,11 @@ import '../base.dart';
 class RestApiService extends BaseHttpService {
   static final Dio dio = Dio();
 
-  const RestApiService(dio);
+  const RestApiService();
 
   static Future<RestApiService> init(String baseUrl) async {
     dio.options = BaseOptions(baseUrl: baseUrl);
-    var restApiService = RestApiService(dio);
+    var restApiService = const RestApiService();
     return restApiService;
   }
 

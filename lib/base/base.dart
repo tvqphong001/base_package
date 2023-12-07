@@ -20,6 +20,7 @@ export 'package:equatable/equatable.dart';
 export 'package:collection/collection.dart';
 export 'package:copy_with_extension/copy_with_extension.dart';
 export 'package:json_annotation/json_annotation.dart';
+export 'package:intl/intl.dart' hide TextDirection;
 
 // build-in packages
 export 'dart:io';
