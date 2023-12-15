@@ -10,3 +10,4 @@ class ObxBuilder extends StatelessWidget {
     return Obx(() => builder());
   }
 }
+

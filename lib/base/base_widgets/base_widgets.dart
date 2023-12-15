@@ -32,3 +32,6 @@ export 'widgets/textfield/customer_controller/selectable_controller.dart';
 
 // getx widget
 export 'widgets_getx/widgets_getx.dart';
+
+// bloc widget
+export 'widgets_bloc/bloc_custom.dart';

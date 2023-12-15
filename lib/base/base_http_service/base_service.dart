@@ -7,7 +7,7 @@ export 'rest_api_service.dart';
 
 abstract class BaseHttpService {
   const BaseHttpService();
-  Future<ApiResponse<Response?>> post({required String path});
+  Future<Response?> post({required String path, Options? options});
 
-  Future<ApiResponse<Response?>> get({required String path});
+  Future<Response?> get({required String path, Options? options});
 }

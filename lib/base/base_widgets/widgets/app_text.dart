@@ -1,8 +1,9 @@
 import '../../base.dart';
 import 'dart:ui' as ui;
 
+String defaultText = '';
 class TextApp extends StatelessWidget {
-  final String text;
+  final String? text;
   final TextAlign? textAlign;
   final int? maxLines;
   final TextOverflow? textOverflow;
@@ -44,7 +45,7 @@ class TextApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      text,
+      text??defaultText,
       overflow: textOverflow,
       textAlign: textAlign,
       maxLines: maxLines,

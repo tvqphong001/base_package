@@ -1,67 +1,69 @@
 import '../base.dart';
 
-class RestApiService extends BaseHttpService {
-  static final Dio dio = Dio();
+abstract class RestApiServiceImp {
+  Future<ApiResponse<Response?>> post({required String path, Map<String, dynamic>? body, Options? options});
 
-  const RestApiService();
+  Future<ApiResponse<Response?>> get({required String path, Map<String, dynamic>? query, Options? options});
+}
 
-  static Future<RestApiService> init(String baseUrl) async {
-    dio.options = BaseOptions(baseUrl: baseUrl);
-    var restApiService = const RestApiService();
-    return restApiService;
+class RestApiService implements RestApiServiceImp {
+  final Dio dio;
+
+  const RestApiService({required this.dio});
+
+  void init(
+    String baseUrl, {
+    int connectTimeout = 60000,
+    Map<String, dynamic>? headers,
+  }) async {
+    dio.options = BaseOptions(baseUrl: baseUrl, connectTimeout: connectTimeout, headers: headers);
   }
 
-  static saveToken(String accessToken) {
+  saveToken(String accessToken) {
     dio.options.headers[authorization] = "$bearer $accessToken";
   }
 
-  static deleteToken() {
+  deleteToken() {
     dio.options.headers[authorization] = "$bearer ";
   }
 
-  @override
-  Future<ApiResponse<Response?>> post({required String path, Map<String, dynamic>? body}) async {
-    try {
-      if (body != null) {
-        removeNull(body);
-      }
-
-      final resp = await dio.post(path, data: body);
-
-      return ApiResponse(data: resp);
-    } catch (e) {
-      print(e);
-      return ApiResponse(
-        statusCode: -1,
-        apiError: ApiError(
-          code: -1,
-          title: 'post error',
-          detail: e.toString(),
-          error: e,
-        ),
-      );
+  Future<ApiResponse<Response?>> post(
+      {required String path, Map<String, dynamic>? body, Options? options}) async {
+    if (body != null) {
+      removeNull(body);
     }
+
+    return await handleResponseFunc(future: () {
+      return dio.post(path, data: body, options: options);
+    },);
   }
 
-  @override
-  Future<ApiResponse<Response?>> get({required String path, Map<String, dynamic>? query}) async {
-    try {
-      if (query != null) {
-        removeNull(query);
-      }
-      final resp = await dio.get(path, queryParameters: query);
+  Future<ApiResponse<Response?>> get(
+      {required String path, Map<String, dynamic>? query, Options? options}) async {
+    if (query != null) {
+      removeNull(query);
+    }
 
-      return ApiResponse(data: resp);
-    } catch (e) {
-      return ApiResponse(
-        statusCode: -1,
-        apiError: ApiError(
-          code: -1,
-          title: 'get error',
-          detail: e.toString(),
-          error: e,
-        ),
-      );
+    return await handleResponseFunc(future: () {
+      return dio.get(path, queryParameters: query, options: options);
+    },);
+  }
+
+  Future<ApiResponse<Response?>> handleResponseFunc({required Future<Response?> Function() future})async{
+    try {
+      final resp = await future();
+      return ApiResponse(data: resp,statusCode: resp?.statusCode);
+    } on DioError catch (e, stack) {
+      print(e);
+      var resp = e.response;
+      return ApiResponse(data: resp,statusCode: resp?.statusCode,apiError: ApiError(
+        error: e,
+      ));
+    } catch (e, stack) {
+      print(e);
+      return ApiResponse(apiError: ApiError(
+        error: e,
+      ));
     }
   }
 }

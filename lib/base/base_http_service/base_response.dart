@@ -194,6 +194,7 @@ Future<ApiResponse<T>> handleAPIResponse<T>(
     }
   } catch (e,stack) {
     log(e.toString(),stackTrace: stack);
+    print(stack);
     if (e is DioError) {
       var mResp = e.response;
 
