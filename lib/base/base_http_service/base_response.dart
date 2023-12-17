@@ -153,7 +153,14 @@ Future<ApiResponse<T>> handleAPIResponse<T>(
       ApiResponseFunc<T>? handleFailureFunc}) async {
   try {
     if (future != null) {
-      response = await future();
+
+      var resp = await future();
+
+      if(resp is ApiResponse<Response?>){
+        response = resp.data;
+      }else{
+        response = resp;
+      }
     }
     if (response == null) {
       return ApiResponse(
