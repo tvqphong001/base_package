@@ -5,6 +5,7 @@ class AppScaffold extends StatelessWidget {
   final Widget body;
   final double? padding;
   final double? paddingHorizontal;
+  final EdgeInsets? paddingOnly;
   final double? paddingVertical;
   final AppBar? appBar;
   final bool enableScrollContent;
@@ -23,8 +24,9 @@ class AppScaffold extends StatelessWidget {
   final Function(bool)? onEndDrawerChanged;
   final GlobalKey<ScaffoldState>? scaffoldKey;
   final bool? bottomSafeArea;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
   const AppScaffold({
-    Key? key,
+    super.key,
     required this.body,
     this.paddingHorizontal,
     this.appBar,
@@ -40,10 +42,9 @@ class AppScaffold extends StatelessWidget {
     this.padding,
     this.floatingActionButton,
     this.bottomSafeArea,
-    this.paddingStatusBar = true, this.drawer, this.onDrawerChanged, this.scaffoldKey, this.endDrawer, this.onEndDrawerChanged,
+    this.paddingStatusBar = true, this.drawer, this.onDrawerChanged, this.scaffoldKey, this.endDrawer, this.onEndDrawerChanged, this.paddingOnly, this.floatingActionButtonLocation,
   })  : assert(padding == null || (paddingHorizontal == null && paddingVertical == null)),
-        assert(bottomContainer == null || bottomButton == null),
-        super(key: key);
+        assert(bottomContainer == null || bottomButton == null);
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +57,7 @@ class AppScaffold extends StatelessWidget {
         bottom: bottomSafeArea??true,
         child: Scaffold(
             resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+            floatingActionButtonLocation: floatingActionButtonLocation,
             appBar: appBar,
             key: scaffoldKey,
             backgroundColor: backgroundColor,
@@ -69,9 +71,9 @@ class AppScaffold extends StatelessWidget {
             body: SizedBox(
               width: double.infinity,
               child: Padding(
-                padding: padding == null
+                padding: paddingOnly ??(padding == null
                     ? EdgeInsets.symmetric(horizontal: paddingHorizontal ?? 0, vertical: paddingVertical ?? 0)
-                    : EdgeInsets.all(padding ?? 16),
+                    : EdgeInsets.all(padding ?? 16)),
                 child: Column(
                   children: [
                     if(topContainer!= null) topContainer!,

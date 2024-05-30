@@ -16,6 +16,8 @@ Future<bool?> showDialogYesNo({
   String? okText,
   String? cancelText,
   Widget? icon,
+  double? insetHorizonPadding,
+  bool? showCloseButton,
 }) async {
   return await showDialog<bool?>(
     context: context,
@@ -34,6 +36,8 @@ Future<bool?> showDialogYesNo({
         okText: okText,
         cancelText: cancelText,
         icon: icon,
+        insetHorizonPadding: insetHorizonPadding,
+        showCloseButton: showCloseButton,
       );
     },
   );
@@ -49,8 +53,10 @@ class AlertPopup extends StatelessWidget {
   final String? okText;
   final String? cancelText;
   final Widget? icon;
+  final double? insetHorizonPadding;
   final Widget Function(BuildContext context)? okButtonBuilder;
   final Widget Function(BuildContext context)? cancelButtonBuilder;
+  final bool? showCloseButton;
   const AlertPopup(
       {super.key,
       required this.onTap,
@@ -63,14 +69,15 @@ class AlertPopup extends StatelessWidget {
       this.onTapCancelFuture,
       this.icon,
       this.okButtonBuilder,
-      this.cancelButtonBuilder})
+      this.cancelButtonBuilder,
+      this.insetHorizonPadding, this.showCloseButton,})
       : assert((onTap == null && onTapFuture == null) ||
             (onTapCancel == null || onTapCancelFuture == null));
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      insetPadding: const EdgeInsets.symmetric(horizontal: 30),
+      insetPadding: EdgeInsets.symmetric(horizontal: insetHorizonPadding??30),
       child: Padding(
         padding: const EdgeInsets.only(
           left: 16,
@@ -80,7 +87,7 @@ class AlertPopup extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
+            if(showCloseButton == false)  const SizedBox(height: 10,) else Row(
               children: [
                 const Spacer(),
                 SizedBox(

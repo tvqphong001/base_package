@@ -49,13 +49,14 @@ showToast(String message,{double fontSize = 24.0}){
   );
 }
 
-showSnackBarGet(String message,{BuildContext? context}){
+showSnackBarGet(String message,{BuildContext? context,Duration? duration = const Duration(seconds: 2)}){
   Get.showSnackbar(GetSnackBar(
     // title: 'Alert!!',
     // message: message,
+
     snackPosition: SnackPosition.BOTTOM,
     messageText: TextApp(message,textAlign: TextAlign.center,color: Colors.white),
-    duration: const Duration(seconds: 2),
+    duration: duration,
     margin: EdgeInsets.only(bottom: 100,right: 20,left: 20),
     // snackStyle: SnackStyle.GROUNDED,
     backgroundGradient: LinearGradient(

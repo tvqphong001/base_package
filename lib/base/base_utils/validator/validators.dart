@@ -6,6 +6,23 @@ class Validators {
 
   /// Regex Phone Number
   static final RegExp regexPhoneNumber = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
+  static final RegExp number = RegExp(r'[0-9]');
+
+  static checkMailFunction(String? value,{String? errorText, bool emptyCheck = false}) {
+    if (value == null || value.isEmpty) {
+      if(emptyCheck){
+        return errorText??'Invalid Email';
+      }else{
+        return null;
+      }
+    } else {
+      if (!regexEmail.hasMatch(value)) {
+        return errorText??'Invalid Email';
+      } else {
+        return null;
+      }
+    }
+  }
 
   static FormFieldValidator<String> emailValidator({String? errorText, bool emptyCheck = false}) {
     return (String? value) {
@@ -21,6 +38,35 @@ class Validators {
         } else {
           return null;
         }
+      }
+    };
+  }
+
+
+  static FormFieldValidator<String> numberValidator({String? errorText, bool emptyCheck = false}) {
+    return (String? value) {
+      if (value == null || value.isEmpty) {
+        if(emptyCheck){
+          return errorText??'Invalid number';
+        }else{
+          return null;
+        }
+      } else {
+        if (!number.hasMatch(value)) {
+          return errorText??'Invalid number';
+        } else {
+          return null;
+        }
+      }
+    };
+  }
+
+  static FormFieldValidator<T> validatorNull<T>({String? errorText}) {
+    return (T? object) {
+      if(object == null){
+        return errorText??"This field can't empty";
+      }else{
+        return null;
       }
     };
   }

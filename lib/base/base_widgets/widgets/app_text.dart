@@ -46,11 +46,11 @@ class TextApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text??defaultText,
-      overflow: textOverflow,
+      overflow: maxLines == 1 ? TextOverflow.ellipsis :textOverflow,
       textAlign: textAlign,
       maxLines: maxLines,
       softWrap: softWrap ?? true,
-      // textScaleFactor: 1.0,
+      // textScaler: TextScaler(),
       style: style ??
           Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontSize: fontSize,

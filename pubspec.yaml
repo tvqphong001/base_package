@@ -16,7 +16,7 @@ dependencies:
   cached_network_image: any
   cupertino_icons: ^1.0.2
   rxdart: ^0.27.2
-  flutter_svg: any
+  flutter_svg: ^2.0.9
   image_picker:  ^1.0.4
   intl: any
   url_launcher: any
@@ -31,9 +31,9 @@ dependencies:
   logger: any
   equatable: any
   collection:
-  dropdown_button2: ^1.9.2
+  dropdown_button2: ^2.3.9
   get_it:
-  dio: ^4.0.6
+  dio: ^5.4.0
   get:
   diacritic: any
   scroll_to_index: any

@@ -23,4 +23,52 @@ Future<T?> showMenuWithOffset<T>({
 }
 
 
+Future<T?> showMenuWithDetails<T>({
+  required BuildContext context,
+  required TapDownDetails details,
+  required List<PopupMenuEntry<T>> items,
+  Color? background,
+  double? elevation,
+  ShapeBorder? shape,
+}){
+  final offset = details.globalPosition;
+  return showMenu<T>(
+      context: context,
+      color: background??Colors.transparent,
+      elevation: elevation??0,
+      shape: shape,
+      position: RelativeRect.fromLTRB(
+        offset.dx,
+        offset.dy + 20,
+        MediaQuery.of(context).size.width - offset.dx,
+        MediaQuery.of(context).size.height - offset.dy,
+      ),
+      items: items);
+}
+
+Future<T?> showMenuWithPosition<T>({
+  required BuildContext context,
+  required TapDownDetails details,
+  required List<PopupMenuEntry<T>> items,
+  Color? background,
+  double? elevation,
+  ShapeBorder? shape,
+}){
+  final offset = details.globalPosition;
+  return showMenu<T>(
+      context: context,
+      color: background??Colors.transparent,
+      elevation: elevation??0,
+      shape: shape,
+      position: RelativeRect.fromLTRB(
+        offset.dx,
+        offset.dy + 20,
+        MediaQuery.of(context).size.width - offset.dx,
+        MediaQuery.of(context).size.height - offset.dy,
+      ),
+      items: items);
+}
+
+
+
 

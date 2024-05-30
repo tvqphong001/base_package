@@ -125,3 +125,4 @@ Future<XFile?> _takeImageFromGallery({required ImageSource imageSource}) async {
     return null;
   }
 }
+

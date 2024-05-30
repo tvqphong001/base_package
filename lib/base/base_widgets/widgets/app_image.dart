@@ -16,10 +16,13 @@ class AppImage extends StatelessWidget {
   final bool isFile;
   final bool isNetwork;
   final bool isNetworkMax;
-
+  final bool isNetworkIcon;
+  final int? networkImgSize;
+  final Widget? errorWidget; // only network
+  final String? cacheKey;
   const AppImage(
     this.data, {
-    Key? key,
+    super.key,
     this.fit = BoxFit.contain,
     this.height,
     this.width,
@@ -31,12 +34,15 @@ class AppImage extends StatelessWidget {
         dataMemory = null,
         isFile = false,
         file = null,
-        isNetworkMax= false,
-        super(key: key);
+        isNetworkMax = false,
+        isNetworkIcon = false,
+        errorWidget = null,
+        cacheKey = null,
+        networkImgSize = null;
 
   const AppImage.asset(
     this.data, {
-    Key? key,
+    super.key,
     this.fit = BoxFit.contain,
     this.height,
     this.colorBlendMode,
@@ -48,12 +54,15 @@ class AppImage extends StatelessWidget {
         isFile = false,
         isNetwork = false,
         file = null,
-        isNetworkMax= false,
-        super(key: key);
+        isNetworkMax = false,
+        isNetworkIcon = false,
+        errorWidget = null,
+        cacheKey = null,
+        networkImgSize = null;
 
   const AppImage.memory(
     this.dataMemory, {
-    Key? key,
+    super.key,
     this.fit = BoxFit.contain,
     this.height,
     this.colorBlendMode,
@@ -65,12 +74,15 @@ class AppImage extends StatelessWidget {
         isFile = false,
         isNetwork = false,
         file = null,
-        isNetworkMax= false,
-        super(key: key);
+        isNetworkMax = false,
+        isNetworkIcon = false,
+        errorWidget = null,
+        cacheKey = null,
+        networkImgSize = null;
 
   const AppImage.pathFile(
     this.data, {
-    Key? key,
+    super.key,
     this.fit = BoxFit.contain,
     this.height,
     this.colorBlendMode,
@@ -82,12 +94,15 @@ class AppImage extends StatelessWidget {
         dataMemory = null,
         isNetwork = false,
         file = null,
-        isNetworkMax= false,
-        super(key: key);
+        isNetworkMax = false,
+        isNetworkIcon = false,
+        errorWidget = null,
+        cacheKey = null,
+        networkImgSize = null;
 
   const AppImage.file(
     this.file, {
-    Key? key,
+    super.key,
     this.fit = BoxFit.contain,
     this.height,
     this.colorBlendMode,
@@ -99,42 +114,71 @@ class AppImage extends StatelessWidget {
         data = '',
         dataMemory = null,
         isNetwork = false,
-        isNetworkMax= false,
-        super(key: key);
+        isNetworkMax = false,
+        isNetworkIcon = false,
+        errorWidget = null,
+        cacheKey = null,
+        networkImgSize = null;
 
   const AppImage.network(
     this.data, {
-    Key? key,
+    super.key,
     this.fit = BoxFit.contain,
     this.height,
     this.colorBlendMode,
     this.width,
     this.color,
     this.size,
+    this.errorWidget,
+    this.isNetworkIcon = false,
+    this.cacheKey,
+    this.networkImgSize,
   })  : isMemory = false,
         isFile = false,
         dataMemory = null,
         isNetwork = true,
         file = null,
-        isNetworkMax= false,
-        super(key: key);
+        isNetworkMax = false;
 
-  const AppImage.networkMax(
-      this.data, {
-        Key? key,
-        this.fit = BoxFit.contain,
-        this.height,
-        this.colorBlendMode,
-        this.width,
-        this.color,
-        this.size,
-      })  : isMemory = false,
+  const AppImage.networkIcon(
+    this.data, {
+    super.key,
+    this.fit = BoxFit.contain,
+    this.height,
+    this.colorBlendMode,
+    this.width,
+    this.color,
+    this.size,
+    this.errorWidget,
+    this.cacheKey,
+  })  : isMemory = false,
         isFile = false,
         dataMemory = null,
         isNetwork = true,
+        isNetworkIcon = true,
         file = null,
-        isNetworkMax= true,
-        super(key: key);
+        isNetworkMax = false,
+        networkImgSize = null;
+
+  const AppImage.networkMax(
+    this.data, {
+    super.key,
+    this.fit = BoxFit.contain,
+    this.height,
+    this.colorBlendMode,
+    this.width,
+    this.color,
+    this.size,
+    this.errorWidget,
+    this.cacheKey,
+  })  : isMemory = false,
+        isFile = false,
+        dataMemory = null,
+        isNetwork = true,
+        isNetworkIcon = false,
+        file = null,
+        isNetworkMax = true,
+        networkImgSize = null;
 
   @override
   Widget build(BuildContext context) {
@@ -167,24 +211,60 @@ class AppImage extends StatelessWidget {
       );
     } else if (isNetwork) {
       widget = CachedNetworkImage(
-          imageUrl: data,
-          color: color,
-          fit: fit,
-          maxHeightDiskCache: isNetworkMax? null : 350,
-          maxWidthDiskCache: isNetworkMax? null : 350,
-          memCacheWidth: isNetworkMax? null :100,
-          colorBlendMode: colorBlendMode,
-          placeholder: (context, url) => isNetworkMax ? const SizedBox() :const CircularProgressIndicator(),
-          errorWidget: (context, url, error) => Container(
+        imageUrl: data,
+        color: color,
+        cacheKey: cacheKey,
+        fit: fit,
+        height: size ?? height,
+        width: size ?? width,
+        maxHeightDiskCache: networkImgSize != null
+            ? networkImgSize!
+            : isNetworkIcon
+                ? 50
+                : isNetworkMax
+                    ? null
+                    : 350,
+        maxWidthDiskCache: networkImgSize != null
+            ? networkImgSize!
+            : isNetworkIcon
+                ? 50
+                : isNetworkMax
+                    ? null
+                    : 350,
+        memCacheWidth: networkImgSize != null
+            ? networkImgSize!
+            : isNetworkIcon
+                ? 50
+                : isNetworkMax
+                    ? null
+                    : 100,
+        colorBlendMode: colorBlendMode,
+        placeholder: (context, url) => isNetworkMax
+            ? const SizedBox()
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                      child: Container(
+                          constraints: BoxConstraints(
+                            maxHeight: 40,
+                            maxWidth: 40,
+                          ),
+                          child: const CircularProgressIndicator())),
+                ],
+              ),
+        errorWidget: (context, url, error) {
+          return errorWidget ??
+              Container(
                 padding: const EdgeInsets.all(10),
                 color: color,
                 child: const Text('error load'),
-              ),
-          );
-    }
-    else if(data == null){
-      widget = SizedBox();
-    }else {
+              );
+        },
+      );
+    } else if (data == null) {
+      widget = const SizedBox();
+    } else {
       // common
       var splitPath = data.split('.');
 
@@ -192,7 +272,8 @@ class AppImage extends StatelessWidget {
         widget = SvgPicture.asset(
           data,
           fit: fit,
-          color: color,
+          colorFilter:
+              color == null ? null : ColorFilter.mode(color!, colorBlendMode ?? BlendMode.srcIn),
         );
       } else {
         widget = Image.asset(
@@ -224,20 +305,20 @@ class AppCircleImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    try{
+    try {
       return SizedBox(
-        width: size??double.infinity,
-        height: size??double.infinity,
-        child: LayoutBuilder(
-            builder: (context,size) {
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(size.maxWidth/2),
-                child: isNetwork ? AppImage.networkMax(path,fit: BoxFit.cover) : AppImage(path,fit: BoxFit.cover),
-              );
-            }
-        ),
+        width: size ?? double.infinity,
+        height: size ?? double.infinity,
+        child: LayoutBuilder(builder: (context, size) {
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(size.maxWidth / 2),
+            child: isNetwork
+                ? AppImage.networkMax(path, fit: BoxFit.cover)
+                : AppImage(path, fit: BoxFit.cover),
+          );
+        }),
       );
-    }catch(e){
+    } catch (e) {
       logger.e(e);
       return const Placeholder();
     }

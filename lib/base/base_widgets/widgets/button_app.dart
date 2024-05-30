@@ -24,6 +24,7 @@ class Button extends StatefulWidget {
   final BoxDecoration? decoration;
   final bool needDelay;
   final int durationDelay;
+  final BoxConstraints? constraints;
 
   const Button(
       {Key? key,
@@ -47,7 +48,7 @@ class Button extends StatefulWidget {
       this.size,
         this.width,
       this.needDelay = true,
-      this.durationDelay = 500})
+      this.durationDelay = 500, this.constraints})
       : super(key: key);
 
   @override
@@ -59,6 +60,12 @@ class _ButtonState extends State<Button> {
   bool isEnable = true;
 
   @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var buttonBorderRadius = widget.decoration != null
         ? widget.decoration!.borderRadius?? BorderRadius.zero
@@ -67,7 +74,7 @@ class _ButtonState extends State<Button> {
       height: widget.size ?? widget.height,
       margin: widget.margin,
       width: widget.width,
-      constraints: BoxConstraints(
+      constraints: widget.constraints ?? BoxConstraints(
         maxHeight: widget.maxHeight??double.infinity,
         minWidth: widget.minWidth,
         maxWidth: widget.size ?? widget.maxWidth ?? double.infinity,

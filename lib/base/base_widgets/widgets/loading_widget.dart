@@ -4,6 +4,8 @@ import '../../base.dart';
 
 bool isLoading = false;
 
+Widget? loadingWidgetGlobal;
+
 void showLoading([BuildContext? context]) {
   if (isLoading) return;
   isLoading = true;
@@ -30,7 +32,7 @@ class LoadingWidget extends StatelessWidget {
     return const Center(
       child: CircularProgressIndicator(
         backgroundColor: Colors.grey,
-        valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+        // valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
       ),
     );
   }
@@ -41,14 +43,12 @@ class Loading2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
-      child: const Dialog(
+    return PopScope(
+      canPop: false,
+      child: Dialog(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        child: LoadingWidget(),
+        child: loadingWidgetGlobal??LoadingWidget(),
       ),
     );
   }

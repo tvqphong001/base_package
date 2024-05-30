@@ -10,12 +10,20 @@ extension StringExNull on String?{
     return removeDiacritics(this??'');
   }
 
+  String get removeDiacriticAndCase {
+    return trimLowerCase;
+  }
+
   String get trimLowerCase {
     if(this == null){
       return '';
     }
 
     return this!.trim().toLowerCase().removeDiacritic;
+  }
+
+  bool containsSearch(String textSearch){
+    return this.removeDiacriticAndCase.contains(textSearch.removeDiacriticAndCase);
   }
 
   bool get isEmptyOrNull {

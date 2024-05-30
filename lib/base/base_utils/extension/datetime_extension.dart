@@ -5,6 +5,11 @@ extension DateTimeBaseEx on DateTime? {
 
   String? get toUtcString => this?.toUtc().toIso8601String();
   String get toStringUtcIso8601String => this?.toUtc().toIso8601String()??'';
+
+  String? get dateIso8601 {
+    if(this == null) return null;
+    return DateFormat("yyyy-MM-dd").format(this!);
+  }
 }
 
 final appDateFormat =DateFormat("dd/MM/yyyy", "vi_VI");
@@ -108,7 +113,45 @@ extension AppDateTime on DateTime {
     return startTimeOfDate.add(const Duration(days: 1)).subtract(const Duration(microseconds: 1));
   }
 
+  bool get isDayOfWeek{
+    return _startTimeOfWeek.millisecondsSinceEpoch <= this.millisecondsSinceEpoch && this.millisecondsSinceEpoch <= _endTimeOfWeek.millisecondsSinceEpoch;
+  }
+
+  DateTime get startTimeOfWeek{
+    final startOfWeek = getDate(this.subtract(Duration(days: this.weekday - 1)));
+    return startOfWeek;
+  }
+
+  DateTime get _startTimeOfWeek{
+    final now = DateTime.now();
+    final startOfWeek = getDate(now.subtract(Duration(days: now.weekday - 1)));
+    return startOfWeek;
+  }
+
+  DateTime get _endTimeOfWeek{
+    final now = DateTime.now();
+    final endOfWeek = getDate(now.add(Duration(days: DateTime.daysPerWeek - now.weekday))).endTimeOfDate;
+    return endOfWeek;
+  }
+
+  DateTime get endTimeOfWeek{
+    final endOfWeek = getDate(this.add(Duration(days: DateTime.daysPerWeek - this.weekday))).endTimeOfDate;
+    return endOfWeek;
+  }
+
+  int get weekOfMonth {
+    var date = this;
+    final firstDayOfTheMonth = DateTime(date.year, date.month, 1);
+    int sum = firstDayOfTheMonth.weekday - 1 + date.day;
+    if (sum % 7 == 0) {
+      return sum ~/ 7;
+    } else {
+      return sum ~/ 7 + 1;
+    }
+  }
 }
+
+DateTime getDate(DateTime d) => DateTime(d.year, d.month, d.day);
 
 String get timeId => '_${DateTime.now().millisecondsSinceEpoch.toString()}';
 int get timeIdInt => DateTime.now().millisecondsSinceEpoch;

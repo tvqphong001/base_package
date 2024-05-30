@@ -30,7 +30,7 @@
 //             child: AppText(
 //               text: title,
 //               fontWeight: FontWeight.bold,
-//               textSize: 16,
+//               fontSize: 16,
 //             ),
 //           ),
 //           Button(
