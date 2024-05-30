@@ -138,6 +138,17 @@ extension AppDateTime on DateTime {
     final endOfWeek = getDate(this.add(Duration(days: DateTime.daysPerWeek - this.weekday))).endTimeOfDate;
     return endOfWeek;
   }
+
+  int get weekOfMonth {
+    var date = this;
+    final firstDayOfTheMonth = DateTime(date.year, date.month, 1);
+    int sum = firstDayOfTheMonth.weekday - 1 + date.day;
+    if (sum % 7 == 0) {
+      return sum ~/ 7;
+    } else {
+      return sum ~/ 7 + 1;
+    }
+  }
 }
 
 DateTime getDate(DateTime d) => DateTime(d.year, d.month, d.day);
