@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
 extension PageControllerEx on PageController {
-  void animate2Page(int page) {
+  void animate2Page(int page,{Duration? duration}) {
     animateToPage(page,
-        duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+        duration: duration??const Duration(milliseconds: 300), curve: Curves.fastOutSlowIn);
   }
 
   int get page2Int => page?.toInt()??0;
 
-  void animateToNexPage(){
+  void animateToNexPage({Duration? duration}){
     var p = (page?.toInt()??0)+1;
-    animate2Page(p);
+    animate2Page(p,duration: duration);
   }
 
-  void animateToPreviousPage(){
+  void animateToPreviousPage({Duration? duration}){
     var p = (page?.toInt()??0)-1;
-    animate2Page(p);
+    animate2Page(p,duration: duration);
   }
 }
 

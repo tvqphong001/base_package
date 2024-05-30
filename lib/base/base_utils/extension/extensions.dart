@@ -37,26 +37,32 @@ String formatToMoney(data,[bool? haveCurrency, String? mCurrency]) {
   }
 }
 
-String formatToMoneyLocale(data,{String? locale, String? symbol}) {
-  // var currency = haveCurrency??true ? (mCurrency??appCurrency) : '';
-  var numberFormat = NumberFormat.simpleCurrency(locale: locale/*,symbol: symbol*/,);
+String formatToMoneyLocale(data,{String? locale, String? symbol,bool hideSymbol = false}) {
+  var numberFormat = NumberFormat.simpleCurrency(locale: locale,);
   try{
-    // int number = 0;
-    // if(data is String){
-    //   number = int.tryParse(data.replaceAll('.', '').replaceAll(',', '').replaceAll(appCurrency, ''))??0;
-    // }else if(data is num){
-    //   number = data.toInt();
-    // }
-
-
-
-
     var money = numberFormat.format(data);
-    print(money);
-    return money;
-    // return numberFormat.format(number);
+
+    var symbols = numberFormat.currencySymbol;
+    var moneyNoCurrency = money.replaceAll(symbols, '');
+    if(moneyNoCurrency.toDouble == 0.0){
+      money = NumberFormat.simpleCurrency(decimalDigits: 0,locale: locale).format(data);
+      if(hideSymbol){
+        money = money.replaceAll(symbols, '');
+      }
+      return money;
+    }else{
+      if(hideSymbol){
+        money = money.replaceAll(symbols, '');
+      }
+    }
+
+    RegExp regex = RegExp(r"([.]*0+)(?!.*\d)");
+
+    String s = money.toString().replaceAll(regex, '');
+
+    return s;
   }catch(e,stack){
-    log('toMoney error $e',stackTrace: stack);
+    log('formatToMoneyLocale error $e',stackTrace: stack);
     return numberFormat.format(0);
   }
 }

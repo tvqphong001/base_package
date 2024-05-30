@@ -1,9 +1,11 @@
 import '../base.dart';
 
 abstract class RestApiServiceImp {
-  Future<ApiResponse<Response?>> post({required String path, Map<String, dynamic>? body, Options? options});
+  Future<ApiResponse<Response?>> post({required String path,  body, Options? options});
+  Future<ApiResponse<Response?>> put({required String path,  body, Options? options});
 
   Future<ApiResponse<Response?>> get({required String path, Map<String, dynamic>? query, Options? options});
+  Future<ApiResponse<Response?>> delete({required String path, Map<String, dynamic>? data, Options? options});
 }
 
 class RestApiService implements RestApiServiceImp {
@@ -16,21 +18,27 @@ class RestApiService implements RestApiServiceImp {
     int connectTimeout = 60000,
     Map<String, dynamic>? headers,
   }) async {
-    dio.options = BaseOptions(baseUrl: baseUrl, connectTimeout: connectTimeout, headers: headers);
+    dio.options = BaseOptions(baseUrl: baseUrl, connectTimeout: Duration(milliseconds: connectTimeout), headers: headers);
   }
 
   saveToken(String accessToken) {
+    dio.options.headers[authorization] = "$bearer";
     dio.options.headers[authorization] = "$bearer $accessToken";
+    print('object');
   }
 
   deleteToken() {
     dio.options.headers[authorization] = "$bearer ";
   }
 
+  @override
   Future<ApiResponse<Response?>> post(
-      {required String path, Map<String, dynamic>? body, Options? options}) async {
+      {required String path,  body, Options? options}) async {
     if (body != null) {
-      removeNull(body);
+      if(body is Map<String, dynamic>){
+        removeNull(body);
+      }
+
     }
 
     return await handleResponseFunc(future: () {
@@ -38,10 +46,14 @@ class RestApiService implements RestApiServiceImp {
     },);
   }
 
+  @override
   Future<ApiResponse<Response?>> get(
       {required String path, Map<String, dynamic>? query, Options? options}) async {
     if (query != null) {
-      removeNull(query);
+      if(query is Map<String, dynamic>){
+        removeNull(query);
+      }
+
     }
 
     return await handleResponseFunc(future: () {
@@ -65,5 +77,26 @@ class RestApiService implements RestApiServiceImp {
         error: e,
       ));
     }
+  }
+
+  @override
+  Future<ApiResponse<Response?>> delete({required String path, Map<String, dynamic>? data, Options? options}) async{
+    return await handleResponseFunc(future: () {
+      return dio.delete(path, data: data, options: options);
+    },);
+  }
+
+  @override
+  Future<ApiResponse<Response?>> put({required String path, body, Options? options}) async{
+    if (body != null) {
+      if(body is Map<String, dynamic>){
+        removeNull(body);
+      }
+
+    }
+
+    return await handleResponseFunc(future: () {
+      return dio.put(path, data: body, options: options);
+    },);
   }
 }

@@ -1210,7 +1210,7 @@ class _TabBarState extends State<CustomTabBar> {
         onTap: () {
           _handleTap(index);
         },
-        borderRadius: const BorderRadius.all(Radius.circular(30)),
+        borderRadius: const BorderRadius.all(Radius.circular(100)),
         enableFeedback: widget.enableFeedback ?? true,
         overlayColor: widget.overlayColor,
         child: Padding(

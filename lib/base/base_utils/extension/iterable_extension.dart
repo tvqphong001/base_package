@@ -5,4 +5,14 @@ extension IterableEx on Iterable?{
 
     return false;
   }
+
+  bool get isNotEmptyOrNull{
+    return !isEmptyOrNull;
+  }
+}
+
+extension ListEx on List?{
+  int get lengthOrZero{
+    return this == null ? 0 : this!.length;
+  }
 }

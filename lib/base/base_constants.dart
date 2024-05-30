@@ -3,7 +3,7 @@
 import 'dart:typed_data';
 
 const defaultDuration = Duration(milliseconds: 300);
-const dAnimDuration = Duration(milliseconds: 300);
+const dAnimDuration = Duration(milliseconds: 200);
 
 // HEADERS
 const contentType = 'Content-Type';
@@ -90,3 +90,5 @@ final Uint8List kTransparentImage = Uint8List.fromList(<int>[
   0x44,
   0xAE,
 ]);
+
+const pageSizeDefault = 15;

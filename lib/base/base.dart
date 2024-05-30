@@ -28,7 +28,7 @@ export 'package:flutter/material.dart' hide RefreshIndicator;
 export 'package:flutter_svg/flutter_svg.dart';
 export 'package:flutter/services.dart';
 export 'package:url_launcher/url_launcher.dart';
-
+export 'package:flutter/foundation.dart' hide binarySearch, mergeSort;
 // utils
 export 'package:base_package/base/base_utils/log/log.dart';
 
@@ -41,3 +41,4 @@ final routeObserver = RouteObserver<PageRoute>();
 
 BuildContext get currentContext => navigatorKey.currentContext!;
 TextTheme get textTheme => Theme.of(currentContext).textTheme;
+ThemeData get theme => Theme.of(currentContext);

@@ -31,14 +31,36 @@ class DotsWidget extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(size / 2)),
             color: index == i ? activeColor : inactiveColor),
-        child: Button(child: const SizedBox(), onPressed: () {
-          onTapDot?.call(i);
-        },),
+        child: Button(
+          child: const SizedBox(),
+          onPressed: () {
+            onTapDot?.call(i);
+          },
+        ),
       ));
     }
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: list,
+    );
+  }
+}
+
+class DotWidget extends StatelessWidget {
+  final double size;
+  final Color? color;
+  const DotWidget({
+    super.key,
+    this.size = 7,
+    this.color = Colors.green,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: size,
+      width: size,
+      decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular((size) / 2)),
     );
   }
 }

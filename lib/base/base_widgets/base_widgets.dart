@@ -26,6 +26,7 @@ export 'widgets/menu/menu_app.dart';
 
 // dialog
 export 'widgets/dialog/dialogs.dart';
+export 'widgets/dialog/select_custom_data.dart';
 
 // custom controller
 export 'widgets/textfield/customer_controller/selectable_controller.dart';

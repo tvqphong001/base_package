@@ -81,4 +81,20 @@ class PermissionHelper {
 
     return resp;
   }
+
+  static Future<PermissionStatus> requestPermissionStorage()async{
+    late PermissionStatus resp ;
+    if (Platform.isAndroid) {
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      if (androidInfo.version.sdkInt <= 32) {
+        resp =await Permission.storage.request();
+      }  else {
+        resp =await Permission.photos.request();
+      }
+    }else{
+      resp =await Permission.storage.request();
+    }
+
+    return resp;
+  }
 }

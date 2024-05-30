@@ -64,7 +64,6 @@ class _AppCheckboxState extends State<AppCheckbox> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Checkbox(
-
           value: isCheck,
           onChanged: (value) {
             setState(() {
@@ -73,6 +72,7 @@ class _AppCheckboxState extends State<AppCheckbox> {
             widget.onValueChange(isCheck);
           },
           activeColor: const Color(0xff6F61FF),
+          checkColor: Colors.white,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         ),
         if(widget.widget != null) widget,
@@ -94,6 +94,54 @@ class _AppCheckboxState extends State<AppCheckbox> {
                               isCheck = !isCheck;
                             });
                             widget.onValueChange(isCheck);
+                          })
+                  ],),
+                ),
+              ],
+            ),
+          )
+      ],
+    );
+  }
+}
+
+
+class AppCheckBox2 extends StatelessWidget {
+  final bool value;
+  final String? text;
+  final FontWeight? fontWeight;
+  final Function(bool value)? onChanged;
+  const AppCheckBox2({super.key, required this.value, this.text, required this.onChanged, this.fontWeight, });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Checkbox(
+          value: value,
+          onChanged: (value) {
+            if(value != null) onChanged!(value!);
+          },
+          activeColor: const Color(0xff6F61FF),
+          checkColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        ),
+
+         if(text != null) Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                RichText(
+                  text: TextSpan(style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: fontWeight
+                  ), children: [
+                    TextSpan(
+                        text: text,
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            if(onChanged != null) onChanged!(!value);
                           })
                   ],),
                 ),

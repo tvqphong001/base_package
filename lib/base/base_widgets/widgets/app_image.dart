@@ -21,16 +21,16 @@ class AppImage extends StatelessWidget {
   final Widget? errorWidget; // only network
   final String? cacheKey;
   const AppImage(
-      this.data, {
-        super.key,
-        this.fit = BoxFit.contain,
-        this.height,
-        this.width,
-        this.colorBlendMode,
-        this.color,
-        this.size,
-        this.isNetwork = false,
-      })  : isMemory = false,
+    this.data, {
+    super.key,
+    this.fit = BoxFit.contain,
+    this.height,
+    this.width,
+    this.colorBlendMode,
+    this.color,
+    this.size,
+    this.isNetwork = false,
+  })  : isMemory = false,
         dataMemory = null,
         isFile = false,
         file = null,
@@ -41,15 +41,15 @@ class AppImage extends StatelessWidget {
         networkImgSize = null;
 
   const AppImage.asset(
-      this.data, {
-        super.key,
-        this.fit = BoxFit.contain,
-        this.height,
-        this.colorBlendMode,
-        this.width,
-        this.color,
-        this.size,
-      })  : isMemory = false,
+    this.data, {
+    super.key,
+    this.fit = BoxFit.contain,
+    this.height,
+    this.colorBlendMode,
+    this.width,
+    this.color,
+    this.size,
+  })  : isMemory = false,
         dataMemory = null,
         isFile = false,
         isNetwork = false,
@@ -61,15 +61,15 @@ class AppImage extends StatelessWidget {
         networkImgSize = null;
 
   const AppImage.memory(
-      this.dataMemory, {
-        super.key,
-        this.fit = BoxFit.contain,
-        this.height,
-        this.colorBlendMode,
-        this.width,
-        this.color,
-        this.size,
-      })  : isMemory = true,
+    this.dataMemory, {
+    super.key,
+    this.fit = BoxFit.contain,
+    this.height,
+    this.colorBlendMode,
+    this.width,
+    this.color,
+    this.size,
+  })  : isMemory = true,
         data = '',
         isFile = false,
         isNetwork = false,
@@ -81,15 +81,15 @@ class AppImage extends StatelessWidget {
         networkImgSize = null;
 
   const AppImage.pathFile(
-      this.data, {
-        super.key,
-        this.fit = BoxFit.contain,
-        this.height,
-        this.colorBlendMode,
-        this.width,
-        this.color,
-        this.size,
-      })  : isMemory = false,
+    this.data, {
+    super.key,
+    this.fit = BoxFit.contain,
+    this.height,
+    this.colorBlendMode,
+    this.width,
+    this.color,
+    this.size,
+  })  : isMemory = false,
         isFile = true,
         dataMemory = null,
         isNetwork = false,
@@ -101,15 +101,15 @@ class AppImage extends StatelessWidget {
         networkImgSize = null;
 
   const AppImage.file(
-      this.file, {
-        super.key,
-        this.fit = BoxFit.contain,
-        this.height,
-        this.colorBlendMode,
-        this.width,
-        this.color,
-        this.size,
-      })  : isMemory = false,
+    this.file, {
+    super.key,
+    this.fit = BoxFit.contain,
+    this.height,
+    this.colorBlendMode,
+    this.width,
+    this.color,
+    this.size,
+  })  : isMemory = false,
         isFile = true,
         data = '',
         dataMemory = null,
@@ -121,19 +121,19 @@ class AppImage extends StatelessWidget {
         networkImgSize = null;
 
   const AppImage.network(
-      this.data, {
-        super.key,
-        this.fit = BoxFit.contain,
-        this.height,
-        this.colorBlendMode,
-        this.width,
-        this.color,
-        this.size,
-        this.errorWidget,
-        this.isNetworkIcon = false,
-        this.cacheKey,
-        this.networkImgSize,
-      })  : isMemory = false,
+    this.data, {
+    super.key,
+    this.fit = BoxFit.contain,
+    this.height,
+    this.colorBlendMode,
+    this.width,
+    this.color,
+    this.size,
+    this.errorWidget,
+    this.isNetworkIcon = false,
+    this.cacheKey,
+    this.networkImgSize,
+  })  : isMemory = false,
         isFile = false,
         dataMemory = null,
         isNetwork = true,
@@ -141,17 +141,17 @@ class AppImage extends StatelessWidget {
         isNetworkMax = false;
 
   const AppImage.networkIcon(
-      this.data, {
-        super.key,
-        this.fit = BoxFit.contain,
-        this.height,
-        this.colorBlendMode,
-        this.width,
-        this.color,
-        this.size,
-        this.errorWidget,
-        this.cacheKey,
-      })  : isMemory = false,
+    this.data, {
+    super.key,
+    this.fit = BoxFit.contain,
+    this.height,
+    this.colorBlendMode,
+    this.width,
+    this.color,
+    this.size,
+    this.errorWidget,
+    this.cacheKey,
+  })  : isMemory = false,
         isFile = false,
         dataMemory = null,
         isNetwork = true,
@@ -161,17 +161,17 @@ class AppImage extends StatelessWidget {
         networkImgSize = null;
 
   const AppImage.networkMax(
-      this.data, {
-        super.key,
-        this.fit = BoxFit.contain,
-        this.height,
-        this.colorBlendMode,
-        this.width,
-        this.color,
-        this.size,
-        this.errorWidget,
-        this.cacheKey,
-      })  : isMemory = false,
+    this.data, {
+    super.key,
+    this.fit = BoxFit.contain,
+    this.height,
+    this.colorBlendMode,
+    this.width,
+    this.color,
+    this.size,
+    this.errorWidget,
+    this.cacheKey,
+  })  : isMemory = false,
         isFile = false,
         dataMemory = null,
         isNetwork = true,
@@ -220,39 +220,39 @@ class AppImage extends StatelessWidget {
         maxHeightDiskCache: networkImgSize != null
             ? networkImgSize!
             : isNetworkIcon
-            ? 50
-            : isNetworkMax
-            ? null
-            : 350,
+                ? 50
+                : isNetworkMax
+                    ? null
+                    : 350,
         maxWidthDiskCache: networkImgSize != null
             ? networkImgSize!
             : isNetworkIcon
-            ? 50
-            : isNetworkMax
-            ? null
-            : 350,
+                ? 50
+                : isNetworkMax
+                    ? null
+                    : 350,
         memCacheWidth: networkImgSize != null
             ? networkImgSize!
             : isNetworkIcon
-            ? 50
-            : isNetworkMax
-            ? null
-            : 100,
+                ? 50
+                : isNetworkMax
+                    ? null
+                    : 100,
         colorBlendMode: colorBlendMode,
         placeholder: (context, url) => isNetworkMax
             ? const SizedBox()
             : Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-                child: Container(
-                    constraints: BoxConstraints(
-                      maxHeight: 40,
-                      maxWidth: 40,
-                    ),
-                    child: const CircularProgressIndicator())),
-          ],
-        ),
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                      child: Container(
+                          constraints: BoxConstraints(
+                            maxHeight: 40,
+                            maxWidth: 40,
+                          ),
+                          child: const CircularProgressIndicator())),
+                ],
+              ),
         errorWidget: (context, url, error) {
           return errorWidget ??
               Container(
@@ -273,7 +273,7 @@ class AppImage extends StatelessWidget {
           data,
           fit: fit,
           colorFilter:
-          color == null ? null : ColorFilter.mode(color!, colorBlendMode ?? BlendMode.srcIn),
+              color == null ? null : ColorFilter.mode(color!, colorBlendMode ?? BlendMode.srcIn),
         );
       } else {
         widget = Image.asset(

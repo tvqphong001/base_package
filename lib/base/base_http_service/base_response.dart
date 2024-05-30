@@ -23,12 +23,13 @@ class ApiResponse<DATA> {
 
 class ApiError {
   final Object? error;
+  final Object? response;
   final int? code;
   final String? codeString;
   final String? title;
   final String? detail;
 
-  const ApiError({this.code, this.title, this.detail,this.error,this.codeString});
+  const ApiError( {this.code, this.title, this.detail,this.error,this.codeString,this.response,});
 
   bool get permissionError => code == 3015;
 
@@ -153,7 +154,14 @@ Future<ApiResponse<T>> handleAPIResponse<T>(
       ApiResponseFunc<T>? handleFailureFunc}) async {
   try {
     if (future != null) {
-      response = await future();
+
+      var resp = await future();
+
+      if(resp is ApiResponse<Response?>){
+        response = resp.data;
+      }else{
+        response = resp;
+      }
     }
     if (response == null) {
       return ApiResponse(
@@ -180,6 +188,7 @@ Future<ApiResponse<T>> handleAPIResponse<T>(
         return ApiResponse(statusCode: response.statusCode);
       }
     } else {
+      print("--------Errors-------- : handleAPIResponse \n$response \n${response.requestOptions.path}");
       // handle call api fail
       if (handleFailureFunc != null) {
         return handleFailureFunc.call(response);
@@ -189,6 +198,8 @@ Future<ApiResponse<T>> handleAPIResponse<T>(
             apiError: ApiError(
               detail: response.statusMessage,
               code: response.statusCode,
+              error: response.data,
+              response: response,
             ));
       }
     }

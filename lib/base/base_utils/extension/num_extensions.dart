@@ -6,7 +6,7 @@ extension NumEx on num{
   }
 
   String toMoneyLocale({String? locale, String? symbol, bool hideSymbol = false}) {
-    return formatToMoneyLocale(this,locale: locale,symbol: symbol);
+    return formatToMoneyLocale(this,locale: locale,symbol: symbol,hideSymbol: hideSymbol);
   }
 }
 
