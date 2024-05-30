@@ -61,9 +61,10 @@ class _AppCheckboxState extends State<AppCheckbox> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Checkbox(
+
           value: isCheck,
           onChanged: (value) {
             setState(() {
@@ -80,9 +81,9 @@ class _AppCheckboxState extends State<AppCheckbox> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 8,
-                ),
+                // const SizedBox(
+                //   height: 8,
+                // ),
                 RichText(
                   text: TextSpan(style: Theme.of(context).textTheme.bodyMedium, children: [
                     TextSpan(

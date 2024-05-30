@@ -13,6 +13,7 @@ class AppDropDownButton<T> extends StatelessWidget {
   final List<double>? customItemsHeights;
   final EdgeInsets? buttonPadding;
   final EdgeInsets? itemPadding;
+  final TextStyle? style;
   // final bool _colItem;
   //
   // const AppDropDownButton.colItem({
@@ -36,27 +37,28 @@ class AppDropDownButton<T> extends StatelessWidget {
       this.customButton,
       this.customItemsHeights,
       this.buttonPadding,
-      this.itemPadding})
+      this.itemPadding,
+      this.style,})
       :  super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
-
       child: DropdownButton2(
         buttonWidth: double.infinity,
         // dropdownPadding: EdgeInsets.zero,
         // buttonPadding: EdgeInsets.zero,
-        buttonPadding: buttonPadding??EdgeInsets.symmetric(horizontal: 20),
+        buttonPadding: buttonPadding??EdgeInsets.symmetric(horizontal: 20,vertical: 0),
         // itemPadding: EdgeInsets.zero,
-        itemPadding: itemPadding??EdgeInsets.symmetric(horizontal: 20),
-
+        itemPadding: itemPadding??EdgeInsets.symmetric(horizontal: 20,vertical: 0),
         buttonSplashColor: Colors.transparent,
+        style: style,
         value: value,
 
         hint: hintWidget??TextApp(hint ?? ''),
         onMenuStateChange: (value) {},
         items: items,
+
         // itemPadding: EdgeInsets.zero,
         customItemsHeights: customItemsHeights,
         dropdownDecoration: BoxDecoration(
