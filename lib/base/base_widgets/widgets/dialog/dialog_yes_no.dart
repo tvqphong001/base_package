@@ -57,6 +57,7 @@ class AlertPopup extends StatelessWidget {
   final Widget Function(BuildContext context)? okButtonBuilder;
   final Widget Function(BuildContext context)? cancelButtonBuilder;
   final bool? showCloseButton;
+
   const AlertPopup(
       {super.key,
       required this.onTap,
@@ -78,105 +79,113 @@ class AlertPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       insetPadding: EdgeInsets.symmetric(horizontal: insetHorizonPadding??30),
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 16,
-          right: 16,
-          bottom: 24,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if(showCloseButton == false)  const SizedBox(height: 10,) else Row(
-              children: [
-                const Spacer(),
-                SizedBox(
-                    height: 40,
-                    child: Button(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      minWidth: 48,
-                      height: 40,
-                      child: const Icon(
-                        Icons.close,
-                        // color: ColorsApp.black,
-                      ),
-                    ))
-              ],
-            ),
-            if (icon != null) ...[
-              const SizedBox(
-                height: 10,
-              ),
-              icon!,
-              const SizedBox(
-                height: 10,
-              )
-            ],
-            TextApp(
-              title,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              height: 1,
-              textAlign: TextAlign.center,
-            ),
-            if (description != null) ...[
-              const SizedBox(
-                height: 13,
-              ),
-              TextApp(
-                description!,
-                textAlign: TextAlign.center,
-              ),
-            ],
-            const SizedBox(
-              height: 24,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-
-                Expanded(
-                  child: cancelButtonBuilder != null
-                      ? cancelButtonBuilder!(context)
-                      : Button(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if(showCloseButton == false)  const SizedBox(height: 10,) else Row(
+            children: [
+              const Spacer(),
+              SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: Button(
                     onPressed: () {
-                      if (onTapCancel == null) {
-                        Navigator.pop(context, false);
-                      } else {
-                        onTapCancel?.call();
-                      }
+                      Navigator.pop(context);
                     },
-                    child: TextApp(cancelText ?? 'Cancel'),
-                  ),
-                ),
+                    minWidth: 48,
+                    height: 40,
+                    child: const Icon(
+                      Icons.close,
+                      // color: ColorsApp.black,
+                    ),
+                  ))
+            ],
+          ),
 
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 16,
+              right: 16,
+              bottom: 24,
+            ),
+            child: Column(
+              children: [
+
+                if (icon != null) ...[
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  icon!,
+                  const SizedBox(
+                    height: 10,
+                  )
+                ],
+                TextApp(
+                  title,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  height: 1,
+                  textAlign: TextAlign.center,
+                ),
+                if (description != null) ...[
+                  const SizedBox(
+                    height: 13,
+                  ),
+                  TextApp(
+                    description!,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
                 const SizedBox(
-                  width: 10,
+                  height: 24,
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
 
-                Expanded(
-                  child: okButtonBuilder != null
-                      ? okButtonBuilder!(context)
-                      : Button(
-                    onPressed: () async {
-                      if (onTapFuture != null) {
-                        await onTapFuture!();
-                        Navigator.pop(context, true);
-                      } else if (onTap == null) {
-                        Navigator.pop(context, true);
-                      } else {
-                        onTap?.call();
-                      }
-                    },
-                    child: Text(okText ?? 'OK'),
-                  ),
-                ),
+                    Expanded(
+                      child: cancelButtonBuilder != null
+                          ? cancelButtonBuilder!(context)
+                          : Button(
+                        onPressed: () {
+                          if (onTapCancel == null) {
+                            Navigator.pop(context, false);
+                          } else {
+                            onTapCancel?.call();
+                          }
+                        },
+                        child: TextApp(cancelText ?? 'Cancel'),
+                      ),
+                    ),
+
+                    const SizedBox(
+                      width: 10,
+                    ),
+
+                    Expanded(
+                      child: okButtonBuilder != null
+                          ? okButtonBuilder!(context)
+                          : Button(
+                        onPressed: () async {
+                          if (onTapFuture != null) {
+                            await onTapFuture!();
+                            Navigator.pop(context, true);
+                          } else if (onTap == null) {
+                            Navigator.pop(context, true);
+                          } else {
+                            onTap?.call();
+                          }
+                        },
+                        child: TextApp(okText ?? 'OK'),
+                      ),
+                    ),
+                  ],
+                )
               ],
-            )
-          ],
-        ),
+            ),
+          ),
+
+        ],
       ),
     );
   }
