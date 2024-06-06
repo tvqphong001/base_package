@@ -143,4 +143,5 @@ extension AppDateTime on DateTime {
 DateTime getDate(DateTime d) => DateTime(d.year, d.month, d.day);
 
 String get timeId => '_${DateTime.now().millisecondsSinceEpoch.toString()}';
+String get timeIdString => '${DateTime.now().millisecondsSinceEpoch.toString()}';
 int get timeIdInt => DateTime.now().millisecondsSinceEpoch;
