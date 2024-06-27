@@ -9,6 +9,8 @@ export 'functions_ui.dart';
 export 'functions_router.dart';
 export 'functions_system.dart';
 
+import 'package:http/http.dart' as http;
+
 void hideKeyBoard([BuildContext? context]) {
   FocusScopeNode currentFocus = FocusScope.of(context ?? ScreenHelper.context);
   if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
@@ -123,3 +125,36 @@ List chunkList(List data, {int chunkSize = 2}) {
   }
   return chunks;
 }
+
+
+Future<bool> checkInternet() async {
+  if (Platform.isIOS) {
+    try {
+      final result = await InternetAddress.lookup('www.google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        return true;
+      }
+    } on SocketException catch (_) {
+      print('not connected');
+    }
+
+    return false;
+  } else {
+    return checkInternetAndroid();
+  }
+}
+
+Future<bool> checkInternetAndroid() async {
+  try {
+    var resp = await http
+        .get(Uri.parse('https://www.google.com/'))
+        .timeout(const Duration(seconds: 20));
+    return resp.statusCode == 200;
+  } catch (e) {
+    if (kDebugMode) {
+      print('checkInternet :$e');
+    }
+    return false;
+  }
+}
+

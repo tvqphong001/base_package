@@ -25,6 +25,7 @@ class Button extends StatefulWidget {
   final bool needDelay;
   final int durationDelay;
   final BoxConstraints? constraints;
+  final AlignmentGeometry? alignment;
 
   const Button(
       {Key? key,
@@ -48,7 +49,8 @@ class Button extends StatefulWidget {
       this.size,
         this.width,
       this.needDelay = true,
-      this.durationDelay = 500, this.constraints})
+      this.durationDelay = 500, this.constraints,
+      this.alignment})
       : super(key: key);
 
   @override
@@ -73,6 +75,7 @@ class _ButtonState extends State<Button> {
     return Container(
       height: widget.size ?? widget.height,
       margin: widget.margin,
+      alignment: widget.alignment,
       width: widget.width,
       constraints: widget.constraints ?? BoxConstraints(
         maxHeight: widget.maxHeight??double.infinity,

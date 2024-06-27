@@ -20,6 +20,7 @@ export 'widgets/item_page_alive.dart';
 export 'widgets/sized_box_app.dart';
 export 'widgets/simple_statefull_widget.dart';
 export 'widgets/tabbar_scroll_to_position.dart';
+export 'widgets/text_button_app.dart';
 export 'package:base_package/base/base_widgets/widgets/app_scroll_view.dart';
 // menu
 export 'widgets/menu/menu_app.dart';

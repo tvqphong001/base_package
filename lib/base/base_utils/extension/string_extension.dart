@@ -45,6 +45,20 @@ extension StringExNull on String?{
   int get toInt {
     return int.tryParse(this??'')??0;
   }
+
+  String get toPercentString{
+    if(this == null){
+      return '0';
+    }
+
+    final a = this.toDouble.toInt().toDouble();
+    final b = this.toDouble;
+    if(a == b){
+      return a.toInt().toString();
+    }else{
+      return b.toString();
+    }
+  }
 }
 
 extension StringEx on String{
