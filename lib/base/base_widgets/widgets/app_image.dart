@@ -247,8 +247,8 @@ class AppImage extends StatelessWidget {
                   Center(
                       child: Container(
                           constraints: BoxConstraints(
-                            maxHeight: 40,
-                            maxWidth: 40,
+                            maxHeight: (size??45) - 5,
+                            maxWidth: (size??45) - 5,
                           ),
                           child: const CircularProgressIndicator())),
                 ],

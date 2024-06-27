@@ -10,6 +10,11 @@ extension DateTimeBaseEx on DateTime? {
     if(this == null) return null;
     return DateFormat("yyyy-MM-dd").format(this!);
   }
+
+  TimeOfDay get toTimeOfDay{
+    if(this == null) return TimeOfDay.now();
+    return TimeOfDay(hour: this!.hour,minute: this!.minute);
+  }
 }
 
 final appDateFormat =DateFormat("dd/MM/yyyy", "vi_VI");
