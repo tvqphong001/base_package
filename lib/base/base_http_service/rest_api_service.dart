@@ -24,7 +24,7 @@ class RestApiService implements RestApiServiceImp {
   saveToken(String accessToken) {
     dio.options.headers[authorization] = "$bearer";
     dio.options.headers[authorization] = "$bearer $accessToken";
-    print('object');
+    
   }
 
   deleteToken() {
