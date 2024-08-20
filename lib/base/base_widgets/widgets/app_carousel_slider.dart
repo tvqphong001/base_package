@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 
-import '../../base.dart' hide CarouselController;
+import '../../base.dart' ;
 
 class AppCarouselSlider extends StatefulWidget {
   final Function(int)? onPageChanged;
   final List<Widget> items;
-  final CarouselController? carouselController;
+  final CarouselSliderController? carouselController;
   final Duration? autoPlayInterval;
   const AppCarouselSlider({
     Key? key,

@@ -26,7 +26,7 @@ dependencies:
   fluttertoast: any
   app_settings: ^5.1.1
   permission_handler:
-  carousel_slider: ^4.1.1
+  carousel_slider: ^5.0.0
   json_annotation: any
   logger: any
   equatable: any

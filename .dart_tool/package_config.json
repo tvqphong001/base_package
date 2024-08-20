@@ -111,7 +111,7 @@
     },
     {
       "name": "carousel_slider",
-      "rootUri": "file:///Users/phong/.pub-cache/hosted/pub.dev/carousel_slider-4.2.1",
+      "rootUri": "file:///Users/phong/.pub-cache/hosted/pub.dev/carousel_slider-5.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -920,7 +920,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2024-08-20T07:18:37.640215Z",
+  "generated": "2024-08-20T07:58:41.031882Z",
   "generator": "pub",
   "generatorVersion": "3.5.0",
   "flutterRoot": "file:///Users/phong/flutter",
