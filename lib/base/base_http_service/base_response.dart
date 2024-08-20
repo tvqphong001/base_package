@@ -189,6 +189,7 @@ Future<ApiResponse<T>> handleAPIResponse<T>(
       }
     } else {
       print("--------Errors-------- : handleAPIResponse \n$response \n${response.requestOptions.path}");
+      steamHandleAPIError?.add(BaseErrorObject(response));
       // handle call api fail
       if (handleFailureFunc != null) {
         return handleFailureFunc.call(response);
@@ -229,6 +230,7 @@ Future<ApiResponse<T>> handleAPIResponse<T>(
         title: response?.statusMessage);
 
     steamHandleAPIResponse?.add(apiError);
+    steamHandleAPIError?.add(BaseErrorObject(e, stack));
 
     return ApiResponse(
         statusCode: response?.statusCode,
@@ -248,4 +250,25 @@ void initAndListenStreamAPIResponse({required ValueChanged<ApiError> onChange}){
 void disposeStreamAPIResponse(){
   steamHandleAPIResponse?.close();
   steamHandleAPIResponse = null;
+}
+
+// all Error
+StreamController<BaseErrorObject>? steamHandleAPIError; //  when use this stream, need dispose when don't use
+
+void initAndListenStreamAPIError({required ValueChanged<BaseErrorObject> onError}){
+  steamHandleAPIError = StreamController();
+  steamHandleAPIError?.stream.listen((event) {
+    onError(event);
+  });
+}
+
+void disposeStreamAPIError(){
+  steamHandleAPIError?.close();
+  steamHandleAPIError = null;
+}
+
+class BaseErrorObject{
+  final Object e;
+  final StackTrace? stack;
+  BaseErrorObject(this.e,[this.stack]);
 }

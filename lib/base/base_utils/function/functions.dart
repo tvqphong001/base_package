@@ -35,7 +35,13 @@ int subTotal(List<int> prices) {
   return subTotal;
 }
 
-void onWidgetBuildDone(function) {
+void onWidgetBuildDone(VoidCallback function) {
+  SchedulerBinding.instance.addPostFrameCallback((_) {
+    function();
+  });
+}
+
+void firstFrameCallBack(VoidCallback function) {
   SchedulerBinding.instance.addPostFrameCallback((_) {
     function();
   });
@@ -157,4 +163,3 @@ Future<bool> checkInternetAndroid() async {
     return false;
   }
 }
-

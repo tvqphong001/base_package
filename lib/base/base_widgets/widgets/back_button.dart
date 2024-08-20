@@ -4,7 +4,8 @@ class MyBackButton extends StatelessWidget {
   final Color? color;
   final VoidCallback? onPressed;
   final double? size;
-  const MyBackButton({Key? key, this.color, this.onPressed, this.size = 40}) : super(key: key);
+  final dynamic icon;
+  const MyBackButton({Key? key, this.color, this.onPressed, this.size = 40, this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +23,10 @@ class MyBackButton extends StatelessWidget {
             Navigator.pop(context);
           }
         },
-        child: Icon(
-          Icons.arrow_back
+        child: AppImage(
+          icon??Icons.arrow_back,
+          size: size != null ? size! - 5 : null,
+          color: color,
         )
       ),
     );

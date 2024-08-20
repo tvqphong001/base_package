@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../base.dart';
 
+Widget? loadingImageWidgetGlobal;
+
 class AppImage extends StatelessWidget {
   final dynamic data;
   final BoxFit fit;
@@ -247,10 +249,16 @@ class AppImage extends StatelessWidget {
                   Center(
                       child: Container(
                           constraints: BoxConstraints(
-                            maxHeight: (size??45) - 5,
-                            maxWidth: (size??45) - 5,
+                            maxHeight: size != null ? size! - 10 : 40,
+                            maxWidth: size != null ? size! - 10 : 40,
                           ),
-                          child: const CircularProgressIndicator())),
+                          child: loadingImageWidgetGlobal ?? Center(child: Container(
+                            child: const CircularProgressIndicator(),
+                            constraints: BoxConstraints(
+                              maxHeight: 40,
+                              maxWidth: 40,
+                            ),
+                          ),))),
                 ],
               ),
         errorWidget: (context, url, error) {

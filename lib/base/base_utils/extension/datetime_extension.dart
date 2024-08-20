@@ -10,11 +10,6 @@ extension DateTimeBaseEx on DateTime? {
     if(this == null) return null;
     return DateFormat("yyyy-MM-dd").format(this!);
   }
-
-  TimeOfDay get toTimeOfDay{
-    if(this == null) return TimeOfDay.now();
-    return TimeOfDay(hour: this!.hour,minute: this!.minute);
-  }
 }
 
 final appDateFormat =DateFormat("dd/MM/yyyy", "vi_VI");
@@ -142,17 +137,6 @@ extension AppDateTime on DateTime {
   DateTime get endTimeOfWeek{
     final endOfWeek = getDate(this.add(Duration(days: DateTime.daysPerWeek - this.weekday))).endTimeOfDate;
     return endOfWeek;
-  }
-
-  int get weekOfMonth {
-    var date = this;
-    final firstDayOfTheMonth = DateTime(date.year, date.month, 1);
-    int sum = firstDayOfTheMonth.weekday - 1 + date.day;
-    if (sum % 7 == 0) {
-      return sum ~/ 7;
-    } else {
-      return sum ~/ 7 + 1;
-    }
   }
 }
 

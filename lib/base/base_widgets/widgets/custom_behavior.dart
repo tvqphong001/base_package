@@ -7,3 +7,16 @@ class MyBehavior extends ScrollBehavior {
     return child;
   }
 }
+
+class RemoveOverScrollBehavior extends StatelessWidget {
+  final Widget child;
+  const RemoveOverScrollBehavior({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollConfiguration(
+      behavior: MyBehavior(),
+      child: child,
+    );
+  }
+}

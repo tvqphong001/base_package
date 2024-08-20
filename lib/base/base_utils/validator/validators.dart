@@ -101,6 +101,14 @@ class Validators {
     };
   }
 
+  static bool hasMatchPhoneNumber(String value){
+    if (!regexPhoneNumber.hasMatch(value)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   static FormFieldValidator<String> emptyValidator({String? errorText}) {
     return (String? text) {
       var value = text?.trim();

@@ -10,6 +10,15 @@ extension StringExNull on String?{
     return removeDiacritics(this??'');
   }
 
+  String get xxxPhone {
+    try{
+      final phone = this??'';
+      return '*******' + phone.substring(phone.length-3,phone.length);
+    }catch(_){
+      return this??'';
+    }
+  }
+
   String get removeDiacriticAndCase {
     return trimLowerCase;
   }
@@ -58,6 +67,12 @@ extension StringExNull on String?{
     }else{
       return b.toString();
     }
+  }
+
+  DateTime? get toDateTime{
+    if(this == null) return null;
+
+    return DateTime.parse(this!);
   }
 }
 

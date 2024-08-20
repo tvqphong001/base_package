@@ -41,6 +41,7 @@ mixin StateMixinExtensions<T> on StateMixin<List<T>> {
     List<T> Function(List<T>)? customList,
     Function? handleError,
     bool showLoading = true,
+    bool needEmpty = true,
   }) async {
     if(showLoading){
       change(null, status: RxStatus.loading());
@@ -55,14 +56,14 @@ mixin StateMixinExtensions<T> on StateMixin<List<T>> {
         list.assignAll(customList(list));
       }
 
-      if(list.isEmpty){
+      if(list.isEmpty && needEmpty){
         status = RxStatus.empty();
       }
 
       change(list, status: status);
     } else {
       if(handleError != null){
-        handleError!();
+        handleError();
       }else{
         change(state, status: RxStatus.error(resp.apiError?.detail));
       }

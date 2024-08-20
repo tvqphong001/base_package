@@ -58,7 +58,12 @@ String formatToMoneyLocale(data,{String? locale, String? symbol,bool hideSymbol 
 
     RegExp regex = RegExp(r"([.]*0+)(?!.*\d)");
 
-    String s = money.toString().replaceAll(regex, '');
+    String s ='';
+    if(numberFormat.locale == 'en_US' || numberFormat.locale == 'en'){
+      s = money.toString().replaceAll(regex, '');
+    }else{
+      s = money;
+    }
 
     return s;
   }catch(e,stack){
