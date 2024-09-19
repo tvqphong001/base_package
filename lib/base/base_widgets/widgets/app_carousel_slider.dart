@@ -8,11 +8,11 @@ class AppCarouselSlider extends StatefulWidget {
   final CarouselSliderController? carouselController;
   final Duration? autoPlayInterval;
   const AppCarouselSlider({
-    Key? key,
+    super.key,
     this.onPageChanged,
     required this.items, this.carouselController,
     this.autoPlayInterval,
-  }) : super(key: key);
+  });
 
   @override
   State<AppCarouselSlider> createState() => _AppCarouselSliderState();

@@ -4,7 +4,8 @@ import 'package:diacritic/diacritic.dart';
 extension StringExNull on String?{
 
   double get toDouble{
-    return double.tryParse(this??'')??0.0;
+    if(this == null) return 0;
+    return double.tryParse((this!.replaceAll(',', ''))??'')??0.0;
   }
   String get removeDiacritic {
     return removeDiacritics(this??'');
