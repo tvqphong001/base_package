@@ -49,10 +49,12 @@ class DotsWidget extends StatelessWidget {
 class DotWidget extends StatelessWidget {
   final double size;
   final Color? color;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
   const DotWidget({
     super.key,
     this.size = 7,
-    this.color = Colors.green,
+    this.color = Colors.green, this.padding, this.margin,
   });
 
   @override
@@ -60,6 +62,8 @@ class DotWidget extends StatelessWidget {
     return Container(
       height: size,
       width: size,
+      padding: padding,
+      margin: margin,
       decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular((size) / 2)),
     );
   }

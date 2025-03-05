@@ -12,6 +12,7 @@ class AppSingleChildScrollView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppShaderMask(
+      // height: 20,
       child: SingleChildScrollView(
         controller: controller,
         padding: padding?.copyWith(bottom: bottomPadding??40,top: topPadding??20)??defaultShaderPadding,
@@ -21,7 +22,9 @@ class AppSingleChildScrollView extends StatelessWidget {
   }
 }
 
-class AppListView extends ListView{
+typedef AppIndexedWidgetBuilder<T> = Widget? Function(BuildContext context, int index, T item);
+
+class AppListView<T> extends ListView{
   @override
   final SliverChildDelegate childrenDelegate;
 
@@ -29,6 +32,108 @@ class AppListView extends ListView{
   Widget build(BuildContext context) {
     return AppShaderMask(child: super.build(context));
   }
+
+  AppListView.builderList({
+    super.key,
+    super.scrollDirection,
+    super.reverse,
+    super.controller,
+    super.primary,
+    super.physics,
+    super.shrinkWrap,
+    EdgeInsets? padding,
+    super.itemExtent,
+    super.prototypeItem,
+    required AppIndexedWidgetBuilder<T> itemBuilder,
+    ChildIndexGetter? findChildIndexCallback,
+    // int? itemCount,
+    required List<T> list,
+    bool addAutomaticKeepAlives = true,
+    bool addRepaintBoundaries = true,
+    bool addSemanticIndexes = true,
+    super.cacheExtent,
+    int? semanticChildCount,
+    super.dragStartBehavior,
+    super.keyboardDismissBehavior,
+    super.restorationId,
+    super.clipBehavior,
+  }) :
+        assert(semanticChildCount == null),
+        assert(
+        itemExtent == null || prototypeItem == null,
+        'You can only pass itemExtent or prototypeItem, not both.',
+        ),
+        childrenDelegate = SliverChildBuilderDelegate(
+          (context, index) => itemBuilder.call(context,index,list[index]),
+          findChildIndexCallback: findChildIndexCallback,
+          childCount: list.length,
+          addAutomaticKeepAlives: addAutomaticKeepAlives,
+          addRepaintBoundaries: addRepaintBoundaries,
+          addSemanticIndexes: addSemanticIndexes,
+        ),
+        super(
+        semanticChildCount: semanticChildCount ?? list.length,
+        padding: padding??defaultShaderPadding,
+      );
+
+  AppListView.separatedList({
+    super.key,
+    super.scrollDirection,
+    super.reverse,
+    super.controller,
+    super.primary,
+    super.physics,
+    super.shrinkWrap,
+    EdgeInsets? padding,
+    required AppIndexedWidgetBuilder<T> itemBuilder,
+    ChildIndexGetter? findChildIndexCallback,
+    required IndexedWidgetBuilder separatorBuilder,
+    required List<T> list,
+    // required int itemCount,
+    bool addAutomaticKeepAlives = true,
+    bool addRepaintBoundaries = true,
+    bool addSemanticIndexes = true,
+    super.cacheExtent,
+    super.dragStartBehavior,
+    double? itemExtent,
+    Widget? prototypeItem,
+    super.keyboardDismissBehavior,
+    super.restorationId,
+    super.clipBehavior,
+  }) : assert(list.length >= 0),
+
+        childrenDelegate = SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+            final int itemIndex = index ~/ 2;
+            final Widget? widget;
+            if (index.isEven) {
+              widget = itemBuilder(context, index,list[itemIndex]);
+            } else {
+              widget = separatorBuilder(context, itemIndex);
+              assert(() {
+                if (widget == null) {
+                  throw FlutterError('separatorBuilder cannot return null.');
+                }
+                return true;
+              }());
+            }
+            return widget;
+          },
+          findChildIndexCallback: findChildIndexCallback,
+          childCount: _computeActualChildCount(list.length),
+          addAutomaticKeepAlives: addAutomaticKeepAlives,
+          addRepaintBoundaries: addRepaintBoundaries,
+          addSemanticIndexes: addSemanticIndexes,
+          semanticIndexCallback: (Widget _, int index) {
+            return index.isEven ? index ~/ 2 : null;
+          },
+        ),
+        super(
+        semanticChildCount: list.length,
+        itemExtent:itemExtent,
+        prototypeItem: prototypeItem,
+        padding: padding??defaultShaderPadding,
+      );
 
   AppListView.builder({
     super.key,

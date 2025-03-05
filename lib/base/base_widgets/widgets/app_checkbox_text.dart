@@ -109,9 +109,10 @@ class _AppCheckboxState extends State<AppCheckbox> {
 class AppCheckBox2 extends StatelessWidget {
   final bool value;
   final String? text;
+  final Widget? widget;
   final FontWeight? fontWeight;
   final Function(bool value)? onChanged;
-  const AppCheckBox2({super.key, required this.value, this.text, required this.onChanged, this.fontWeight, });
+  const AppCheckBox2({super.key, required this.value, this.text, required this.onChanged, this.fontWeight, this.widget, });
 
   @override
   Widget build(BuildContext context) {
@@ -121,13 +122,14 @@ class AppCheckBox2 extends StatelessWidget {
         Checkbox(
           value: value,
           onChanged: (value) {
-            if(value != null) onChanged!(value!);
+            if(value != null) onChanged!(value);
           },
-          activeColor: const Color(0xff6F61FF),
+          activeColor: theme.primaryColor,
           checkColor: Colors.white,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         ),
 
+         if(widget!= null) Expanded(child: InkWell(onTap: () => onChanged!(!value),child: widget!)),
          if(text != null) Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,3 +154,81 @@ class AppCheckBox2 extends StatelessWidget {
     );
   }
 }
+
+class AppCheckBoxBase extends StatefulWidget {
+  final bool value;
+  final String? text;
+  final Widget? widget;
+  final FontWeight? fontWeight;
+  final Function(bool value)? onChanged;
+  const AppCheckBoxBase({super.key, required this.value, this.text, required this.onChanged, this.fontWeight, this.widget, });
+
+  @override
+  State<AppCheckBoxBase> createState() => _AppCheckBoxBaseState();
+}
+
+class _AppCheckBoxBaseState extends State<AppCheckBoxBase> {
+  late final value = widget.value.obs;
+
+  @override
+  void didUpdateWidget(covariant AppCheckBoxBase oldWidget) {
+    if(oldWidget.value != widget.value){
+
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        ObxBuilder(
+          builder: () {
+            return Checkbox(
+              value: value.value,
+              onChanged: (value) {
+                this.value.value = value??false;
+                if(value != null) widget.onChanged!(value);
+              },
+              activeColor: theme.primaryColor,
+              checkColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+            );
+          }
+        ),
+
+        if(widget.widget!= null) Expanded(child: InkWell(onTap: () {
+          if(widget.onChanged != null){
+            this.value.value = !this.value.value;
+            widget.onChanged!(!widget.value);
+          };
+        },child: widget.widget!)),
+        if(widget.text != null) Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              RichText(
+                text: TextSpan(style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: widget.fontWeight
+                ), children: [
+                  TextSpan(
+                      text: widget.text,
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          if(widget.onChanged != null){
+                            this.value.value = !this.value.value;
+                            widget.onChanged!(!widget.value);
+                          };
+                        })
+                ],),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}
+

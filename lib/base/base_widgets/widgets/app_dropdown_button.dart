@@ -135,7 +135,7 @@ class DropDownBelowButton<T> extends StatelessWidget {
           return DropdownMenuItem<DropDownData<T>?>(
             value: prefix,
             child: TextApp(
-              prefix.text ?? '',
+              prefix.text,
               style: textStyle,
             ),
           );

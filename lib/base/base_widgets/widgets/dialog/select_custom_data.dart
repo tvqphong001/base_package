@@ -121,7 +121,7 @@ class _SelectCustomDataController<T> extends GetxController with SearchMixin {
   }
 }
 
-class TextFieldSearchBase extends StatelessWidget {
+class TextFieldSearchBase extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final bool showPrefixIconSearch;
   final Widget? suffixIcon;
@@ -135,20 +135,32 @@ class TextFieldSearchBase extends StatelessWidget {
   });
 
   @override
+  State<TextFieldSearchBase> createState() => _TextFieldSearchBaseState();
+}
+
+class _TextFieldSearchBaseState extends State<TextFieldSearchBase> {
+  late final controller = widget.controller??TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
       child: TextField(
         controller: controller,
-        onChanged: onChanged,
+        onChanged: widget.onChanged,
         decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
-            prefixIcon: showPrefixIconSearch
+            prefixIcon: widget.showPrefixIconSearch
                 ? Icon(Icons.search, color: theme.primaryColor, size: 25)
                 : null,
             isDense: true,
-            suffixIcon: suffixIcon,
-            hintText: hintText),
+            suffixIcon: widget.suffixIcon,
+            hintText: widget.hintText,
+        suffix: IconButton(onPressed: () {
+          controller.clear();
+          widget.onChanged?.call(controller.text);
+        },
+        icon: Icon(Icons.close))),
       ),
     );
   }

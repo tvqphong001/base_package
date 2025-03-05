@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 const defaultDuration = Duration(milliseconds: 300);
 const dAnimDuration = Duration(milliseconds: 200);
+const defaultDurationAnim = Duration(milliseconds: 200);
 
 // HEADERS
 const contentType = 'Content-Type';
@@ -21,6 +22,10 @@ const httpStatusCodeError405 = 405;
 
 // const paddingApp = 16.0;
 const sampleText = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever';
+const sampleName = 'Victoria Lee';
+const samplePhone = '0123456789';
+const sampleDate = '20/03/2020';
+const sampleEmail = 'victoria.lee.nguyen.tran@gmail.com';
 
 const dDebounceDuration = Duration(milliseconds: 300);
 
@@ -91,4 +96,4 @@ final Uint8List kTransparentImage = Uint8List.fromList(<int>[
   0xAE,
 ]);
 
-const pageSizeDefault = 15;
+var pageSizeDefault = 15;

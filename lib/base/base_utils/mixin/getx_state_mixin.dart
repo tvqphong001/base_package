@@ -2,16 +2,18 @@ import 'package:base_package/base/base_http_service/base_response.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
+
 mixin StateMixinExtensionsObject<T> on StateMixin<T> {
   final refreshController = RefreshController();
 
   Future handleDataStatus({
     required Future<ApiResponse<T>> future,
     Function? handleError,
+    Function(T? data)? handleSuccess,
     bool showLoading = true,
   }) async {
     if(showLoading){
-      change(null, status: RxStatus.loading());
+      change(state, status: RxStatus.loading());
     }
 
     var resp = await future;
@@ -20,7 +22,12 @@ mixin StateMixinExtensionsObject<T> on StateMixin<T> {
       var status = RxStatus.success();
       var data = resp.data;
 
-      change(data, status: status);
+      if(handleSuccess != null){
+        handleSuccess.call(data);
+      }else{
+        change(data, status: status);
+      }
+
     } else {
       if(handleError != null){
         handleError.call();
@@ -28,6 +35,8 @@ mixin StateMixinExtensionsObject<T> on StateMixin<T> {
         change(state, status: RxStatus.error(resp.apiError?.detail));
       }
     }
+    refreshController.loadComplete();
+    refreshController.refreshCompleted();
   }
 }
 
@@ -73,9 +82,11 @@ mixin StateMixinExtensions<T> on StateMixin<List<T>> {
   }
 }
 
+var currentPageDefault = 1;
+
 mixin StateMixinPageExtensions<T> on StateMixin<Paginate<T>> {
 
-  Paginate<T> get statesRequired => state??Paginate(list: []);
+  Paginate<T> get statesRequired => state??const Paginate(list: []);
 
   final refreshController = RefreshController();
 
@@ -84,13 +95,13 @@ mixin StateMixinPageExtensions<T> on StateMixin<Paginate<T>> {
     required bool refresh,
     bool showLoading = true,
   }) async {
-    var currentPage = (state?.currentPage??1)+1;
+    var currentPage = (state?.currentPage??currentPageDefault)+1;
 
     if(refresh){
       if(showLoading){
         change(null,status: RxStatus.loading());
       }
-      currentPage = 1;
+      currentPage = currentPageDefault;
     }
 
     var resp = await future(currentPage);
@@ -109,8 +120,12 @@ mixin StateMixinPageExtensions<T> on StateMixin<Paginate<T>> {
         status = RxStatus.empty();
       }
 
-      change(paginate,status: status);
-
+      if(resp.data!.list.isNotEmpty || refresh){
+        change(paginate,status: status);
+      }else{
+        // not handle
+        
+      }
     }else{
       change(state,status: RxStatus.error(resp.apiError?.title));
     }

@@ -1,3 +1,4 @@
+/*
 // Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -893,7 +894,7 @@ class _TabBarState extends State<CustomTabBar> {
     // with a better long-term solution.
     // https://github.com/flutter/flutter/pull/68171#pullrequestreview-517753917
     if (widget.automaticIndicatorColorAdjustment &&
-        color.value == Material.of(context)?.color?.value) color = Colors.white;
+        color.value == Material.of(context).color?.value) color = Colors.white;
 
     return UnderlineTabIndicator(
       borderSide: BorderSide(
@@ -1124,7 +1125,7 @@ class _TabBarState extends State<CustomTabBar> {
       );
     }
 
-    final TabBarTheme tabBarTheme = TabBarTheme.of(context);
+    final TabBarThemeData tabBarTheme = TabBarThemeData.of(context);
 
     final List<Widget> wrappedTabs =
         List<Widget>.generate(widget.tabs.length, (int index) {
@@ -1685,3 +1686,4 @@ class TabPageSelector extends StatelessWidget {
     );
   }
 }
+*/

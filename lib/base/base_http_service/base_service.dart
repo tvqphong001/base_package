@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'base_response.dart';
 
 export 'base_response.dart';
 export 'base_http_service.dart';

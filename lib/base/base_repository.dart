@@ -1,4 +1,4 @@
-import 'base.dart';
+// import 'base.dart';
 
 // abstract class BaseRepository implements BaseHttpService{
 //   final httpClient = getIt<BaseHttpService>(instanceName: 'ApiService');

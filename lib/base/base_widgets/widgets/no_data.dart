@@ -7,7 +7,6 @@ class NoDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('No data');
-    // return Center(child: SvgPicture.asset(Images.icNoDataFound));
+    return Center(child: TextApp(baseLanguage.no_data,fontWeight: FontWeight.bold,));
   }
 }

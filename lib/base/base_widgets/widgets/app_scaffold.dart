@@ -1,5 +1,7 @@
 import '../../base.dart';
 
+var paddingAppScaffold = 20.0;
+var paddingTopScrollAppScaffold = 0.0;
 
 class AppScaffold extends StatelessWidget {
   final Widget body;
@@ -9,6 +11,7 @@ class AppScaffold extends StatelessWidget {
   final double? paddingVertical;
   final AppBar? appBar;
   final bool enableScrollContent;
+  final double? paddingTopScroll;
   final Widget? bottomButton;
   final Widget? bottomContainer;
   final Widget? topContainer;
@@ -23,8 +26,13 @@ class AppScaffold extends StatelessWidget {
   final Function(bool)? onDrawerChanged;
   final Function(bool)? onEndDrawerChanged;
   final GlobalKey<ScaffoldState>? scaffoldKey;
-  final bool? bottomSafeArea;
+  final bool bottomSafeArea;
+  final bool topSafeArea;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
+  final ScrollController? scrollController;
+  final EdgeInsets? paddingScroll;
+  final double? paddingBottomScroll;
+
   const AppScaffold({
     super.key,
     required this.body,
@@ -33,6 +41,7 @@ class AppScaffold extends StatelessWidget {
     this.resizeToAvoidBottomInset = true,
     this.extendBody = false,
     this.enableScrollContent = false,
+    this.paddingTopScroll,
     this.bottomButton,
     this.bottomContainer,
     this.topContainer,
@@ -41,25 +50,27 @@ class AppScaffold extends StatelessWidget {
     this.paddingVertical,
     this.padding,
     this.floatingActionButton,
-    this.bottomSafeArea,
-    this.paddingStatusBar = true, this.drawer, this.onDrawerChanged, this.scaffoldKey, this.endDrawer, this.onEndDrawerChanged, this.paddingOnly, this.floatingActionButtonLocation,
+    this.bottomSafeArea = false,
+    this.scrollController,
+    this.paddingStatusBar = true, this.drawer, this.onDrawerChanged, this.scaffoldKey, this.endDrawer, this.onEndDrawerChanged, this.paddingOnly, this.floatingActionButtonLocation, this.topSafeArea =false, this.paddingScroll, this.paddingBottomScroll,
   })  : assert(padding == null || (paddingHorizontal == null && paddingVertical == null)),
         assert(bottomContainer == null || bottomButton == null);
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-      ),
-      child: SafeArea(
-        top: false,
-        bottom: bottomSafeArea??true,
+    return SafeArea(
+      top: topSafeArea,
+      bottom: bottomSafeArea,
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+        ),
         child: Scaffold(
             resizeToAvoidBottomInset: resizeToAvoidBottomInset,
             floatingActionButtonLocation: floatingActionButtonLocation,
             appBar: appBar,
             key: scaffoldKey,
+            // extendBodyBehindAppBar: true,
             backgroundColor: backgroundColor,
             floatingActionButton: floatingActionButton,
             bottomNavigationBar: bottomNavigationBar,
@@ -72,7 +83,7 @@ class AppScaffold extends StatelessWidget {
               width: double.infinity,
               child: Padding(
                 padding: paddingOnly ??(padding == null
-                    ? EdgeInsets.symmetric(horizontal: paddingHorizontal ?? 0, vertical: paddingVertical ?? 0)
+                    ? EdgeInsets.symmetric(horizontal: paddingHorizontal ?? paddingAppScaffold, vertical: paddingVertical ?? 0)
                     : EdgeInsets.all(padding ?? 16)),
                 child: Column(
                   children: [
@@ -84,7 +95,8 @@ class AppScaffold extends StatelessWidget {
                     Expanded(
                       child: enableScrollContent
                           ? SingleChildScrollView(
-                              padding: const EdgeInsets.only(bottom: 20),
+                        controller: scrollController,
+                              padding: paddingScroll??EdgeInsets.only(bottom: paddingBottomScroll??20,top: paddingTopScrollAppScaffold),
                               child: body,
                             )
                           : body,
@@ -98,11 +110,41 @@ class AppScaffold extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       )
-                    ]
+                    ],
                   ],
                 ),
               ),
-            )),
+            ),
+        ),
+      ),
+    );
+  }
+}
+
+
+class AppScaffoldFixBugWithTabbarView extends StatelessWidget {
+  final Widget? floatingActionButton;
+  final Widget body;
+  final Color? backgroundColor;
+
+  const AppScaffoldFixBugWithTabbarView({super.key, this.floatingActionButton, required this.body, this.backgroundColor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: backgroundColor,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: body,
+          ),
+          if (floatingActionButton != null)
+            Positioned(
+              right: 20,
+              bottom: 50,
+              child: floatingActionButton!,
+            ),
+        ],
       ),
     );
   }

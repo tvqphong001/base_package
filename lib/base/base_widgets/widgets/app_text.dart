@@ -2,6 +2,7 @@ import '../../base.dart';
 import 'dart:ui' as ui;
 
 String defaultText = '';
+
 class TextApp extends StatelessWidget {
   final String? text;
   final TextAlign? textAlign;
@@ -22,37 +23,36 @@ class TextApp extends StatelessWidget {
   final double? letterSpacing;
 
   const TextApp(
-      this.text, {
-        Key? key,
-        this.fontSize,
-        this.color,
-        this.fontWeight,
-        this.textAlign,
-        this.maxLines,
-        this.textOverflow,
-        this.height,
-        this.textDecoration,
-        this.softWrap,
-        this.fontStyle,
-        this.style,
-        this.fontFamily,
-        this.letterSpacing,
-        this.decorationColor,
-        this.decorationThickness,
-        this.shadows,
-      }) : super(key: key);
+    this.text, {
+    super.key,
+    this.fontSize,
+    this.color,
+    this.fontWeight,
+    this.textAlign,
+    this.maxLines,
+    this.textOverflow,
+    this.height,
+    this.textDecoration,
+    this.softWrap,
+    this.fontStyle,
+    this.style,
+    this.fontFamily = 'Gotham',
+    this.letterSpacing,
+    this.decorationColor,
+    this.decorationThickness,
+    this.shadows,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      text??defaultText,
-      overflow: maxLines == 1 ? TextOverflow.ellipsis :textOverflow,
+      text ?? defaultText,
+      overflow: maxLines == 1 ? TextOverflow.ellipsis : textOverflow,
       textAlign: textAlign,
       maxLines: maxLines,
       softWrap: softWrap ?? true,
       // textScaler: TextScaler(),
-      style: style ??
-          Theme.of(context).textTheme.bodyMedium?.copyWith(
+      style: style?.copyWith(
             fontSize: fontSize,
             fontWeight: fontWeight,
             color: color,
@@ -60,11 +60,24 @@ class TextApp extends StatelessWidget {
             fontStyle: fontStyle,
             decoration: textDecoration,
             decorationColor: decorationColor,
-            decorationThickness : decorationThickness,
+            decorationThickness: decorationThickness,
             fontFamily: fontFamily,
             letterSpacing: letterSpacing,
             height: height,
-          ),
+          ) ??
+          Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontSize: fontSize,
+                fontWeight: fontWeight,
+                color: color,
+                shadows: shadows,
+                fontStyle: fontStyle,
+                decoration: textDecoration,
+                decorationColor: decorationColor,
+                decorationThickness: decorationThickness,
+                fontFamily: fontFamily,
+                letterSpacing: letterSpacing,
+                height: height,
+              ),
     );
   }
 }

@@ -1,7 +1,3 @@
-import 'dart:developer';
-
-import 'package:intl/intl.dart';
-
 import '../../base.dart';
 
 export 'num_extensions.dart';
@@ -14,20 +10,23 @@ export 'iterable_extension.dart';
 export 'color_extension.dart';
 export 'textfield_extension.dart';
 export 'validator_ex.dart';
+export 'dynamic_extension.dart';
 
 const appCurrency = 'đ';
 const maxMoney = 9.0071993e+15;
+
+var thousandths = ',';
+var decimalDigit = '.';
 
 String formatToMoney(data,[bool? haveCurrency, String? mCurrency]) {
   var currency = haveCurrency??true ? (mCurrency??appCurrency) : '';
   try{
     int number = 0;
     if(data is String){
-      number = int.tryParse(data.replaceAll('.', '').replaceAll(',', '').replaceAll(appCurrency, ''))??0;
+      number = int.tryParse(data.replaceAll(decimalDigit, '').replaceAll(thousandths, '').replaceAll(appCurrency, ''))??0;
     }else if(data is num){
       number = data.toInt();
     }
-
 
     if(number >= maxMoney) return '${numberFormat.format(maxMoney)}$currency';
     return '${numberFormat.format(number)}$currency';
@@ -41,16 +40,36 @@ String formatToMoneyLocale(data,{String? locale, String? symbol,bool hideSymbol 
   var numberFormat = NumberFormat.simpleCurrency(locale: locale,);
   try{
     var money = numberFormat.format(data);
-
     var symbols = numberFormat.currencySymbol;
-    var moneyNoCurrency = money.replaceAll(symbols, '');
+
+    var moneyNoCurrency = money.replaceAll(symbols, '').replaceAll(thousandths, '');
     if(moneyNoCurrency.toDouble == 0.0){
       money = NumberFormat.simpleCurrency(decimalDigits: 0,locale: locale).format(data);
+
+      // custom symbol
+      if(symbol != null){
+        var noSymbol = money.replaceAll(symbols, '');
+
+        symbols = symbol;
+
+        money = '$noSymbol $symbols';
+      }
+
       if(hideSymbol){
-        money = money.replaceAll(symbols, '');
+        money = money.replaceAll(symbols, '').trim();
       }
       return money;
     }else{
+
+      // custom symbol
+      if(symbol != null){
+        var noSymbol = money.replaceAll(symbols, '');
+
+        symbols = symbol;
+
+        money = '$noSymbol $symbols';
+      }
+
       if(hideSymbol){
         money = money.replaceAll(symbols, '');
       }

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import '../../../base/base.dart';
 
@@ -19,6 +18,20 @@ class ApiResponse<DATA> {
     this.statusCode,
     this.meta,
   });
+
+  ApiResponse<DATA> copyWith({
+     DATA? data,
+     ApiError? apiError,
+     PageData? meta,
+     int? statusCode,
+}){
+    return ApiResponse<DATA>(
+       data : data??this.data,
+       apiError : apiError??this.apiError,
+       meta : meta??this.meta,
+       statusCode : statusCode??this.statusCode,
+    );
+  }
 }
 
 class ApiError {
@@ -88,22 +101,32 @@ class MetaDataResp{
   }
 }
 
+abstract class BasePaginate{
+
+}
+
 class Paginate<T> extends Equatable{
   final List<T> list;
   final int currentPage;
   final int? totalPages;
   final int? totalRecords;
-  const Paginate({required this.list, this.currentPage = 1,this.totalPages,this.totalRecords});
+  // this use for dynamic data
+  final dynamic data;
+  const Paginate({required this.list, this.currentPage = 1,this.totalPages,this.totalRecords,this.data});
 
-  Paginate<T> copyWith({List<T>? data,
+  Paginate<T> copyWith({
+    List<T>? list,
     int? currentPage,
     int? totalPages,
-    int? totalRecords,}){
+    int? totalRecords,
+    dynamic data,
+  }){
     return Paginate(
-      list: data??this.list,
+      list: list??this.list,
       totalRecords: totalRecords??this.totalRecords,
       totalPages: totalPages??this.totalPages,
       currentPage: currentPage??this.currentPage,
+      data: data ?? this.data,
     );
   }
 
@@ -114,6 +137,7 @@ class Paginate<T> extends Equatable{
       totalRecords: data.totalRecords,
       totalPages: data.totalPages,
       currentPage: data.currentPage,
+      data: data.data,
     );
   }
 
@@ -123,6 +147,19 @@ class Paginate<T> extends Equatable{
       totalRecords: this.totalRecords,
       totalPages: this.totalPages,
       currentPage: this.currentPage,
+      data: this.data,
+    );
+  }
+
+  Paginate<T> updateItem({required T item}){
+    final list = [...this.list];
+    list[list.indexOf(item)] = item;
+    return Paginate(
+      list: list,
+      totalRecords: this.totalRecords,
+      totalPages: this.totalPages,
+      currentPage: this.currentPage,
+      data: this.data,
     );
   }
 
@@ -134,6 +171,7 @@ class Paginate<T> extends Equatable{
       totalRecords: (this.totalRecords??0) + 1,
       totalPages: this.totalPages,
       currentPage: this.currentPage,
+      data: this.data,
     );
   }
 
@@ -145,17 +183,29 @@ typedef ApiResponseType<T> = T Function(Response resp);
 typedef ApiResponseFunc<T> = ApiResponse<T> Function(Response resp);
 
 Future<ApiResponse<T>> handleAPIResponse<T>(
-    {Response? response,
+    { Response? response,
+      bool enableMock = false,
       Future Function()? future,
       String? keyRespData,
       T? defaultRespData,
       ApiResponseType<T>? handleSuccess,
       ApiResponseFunc<T>? handleSuccessFunc,
-      ApiResponseFunc<T>? handleFailureFunc}) async {
+      ApiResponseFunc<T>? handleFailureFunc,
+      bool needLoading = false,
+    }) async {
+  Completer? completer;
+
+  if(needLoading){
+    completer = Completer();
+    showLoading(completer: completer);
+  }
+
   try {
-    if (future != null) {
+    if (future != null && !enableMock) {
 
       var resp = await future();
+
+      hideLoading(completer: completer);
 
       if(resp is ApiResponse<Response?>){
         response = resp.data;
@@ -205,6 +255,7 @@ Future<ApiResponse<T>> handleAPIResponse<T>(
       }
     }
   } catch (e,stack) {
+    hideLoading(completer: completer);
     log(e.toString(),stackTrace: stack);
     print(stack);
     if (e is DioError) {

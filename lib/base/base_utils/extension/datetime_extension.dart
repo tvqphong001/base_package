@@ -5,6 +5,7 @@ extension DateTimeBaseEx on DateTime? {
 
   String? get toUtcString => this?.toUtc().toIso8601String();
   String get toStringUtcIso8601String => this?.toUtc().toIso8601String()??'';
+  String get toStringIso8601String => this?.toIso8601String()??'';
 
   String? get dateIso8601 {
     if(this == null) return null;
@@ -116,6 +117,14 @@ extension AppDateTime on DateTime {
   bool get isDayOfWeek{
     return _startTimeOfWeek.millisecondsSinceEpoch <= this.millisecondsSinceEpoch && this.millisecondsSinceEpoch <= _endTimeOfWeek.millisecondsSinceEpoch;
   }
+
+  DateTime get startTimeOfMonth{
+    final startOfWeek = getDate(this.copyWith(day: 1));
+    return startOfWeek;
+  }
+
+  DateTime get endTimeOfMonth =>
+      month < 12 ? DateTime(year, month + 1, 0) : DateTime(year + 1, 1, 0);
 
   DateTime get startTimeOfWeek{
     final startOfWeek = getDate(this.subtract(Duration(days: this.weekday - 1)));

@@ -39,12 +39,13 @@ mixin LifecycleAppMixin<T extends StatefulWidget> on State<T> {
 
 class LifecycleEventHandler extends WidgetsBindingObserver {
   LifecycleEventHandler(
-      {this.resume, this.inactive, this.paused, this.detached});
+      {this.resume, this.inactive, this.paused, this.detached,this.hidden});
 
   final AsyncCallback? resume;
   final AsyncCallback? inactive;
   final AsyncCallback? paused;
   final AsyncCallback? detached;
+  final AsyncCallback? hidden;
 
   @override
   Future didChangeAppLifecycleState(AppLifecycleState state) async {
@@ -60,6 +61,9 @@ class LifecycleEventHandler extends WidgetsBindingObserver {
         break;
       case AppLifecycleState.resumed:
         await resume?.call();
+        break;
+      case AppLifecycleState.hidden:
+        await hidden?.call();
         break;
     }
   }

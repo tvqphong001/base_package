@@ -8,9 +8,11 @@ export 'helper/helper.dart';
 export 'helper/permission_helper.dart';
 export 'log/log.dart';
 export 'convert/app_json_converter.dart';
+export 'formatters/number_formatter.dart';
 
 export 'ui/physical_scroll/physical.dart';
 export 'ui/text_span.dart';
+export 'async/async.dart';
 
 // export 'validator/validators.dart';
 
@@ -19,3 +21,5 @@ void afterLayout({required VoidCallback callback}){
     callback();
   });
 }
+
+DateTime get now => DateTime.now();

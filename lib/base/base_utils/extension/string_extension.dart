@@ -4,9 +4,13 @@ import 'package:diacritic/diacritic.dart';
 extension StringExNull on String?{
 
   double get toDouble{
-    if(this == null) return 0;
-    return double.tryParse((this!.replaceAll(',', ''))??'')??0.0;
+    return double.tryParse(this??'')??0.0;
   }
+
+  num get toNumber{
+    return num.tryParse(this??'')??0.0;
+  }
+
   String get removeDiacritic {
     return removeDiacritics(this??'');
   }
@@ -53,7 +57,7 @@ extension StringExNull on String?{
   }
 
   int get toInt {
-    return int.tryParse(this??'')??0;
+    return int.tryParse((this?.replaceAll(thousandths, ''))??'')??0;
   }
 
   String get toPercentString{
@@ -83,6 +87,10 @@ extension StringEx on String{
     return appDateFormat.parse(this);
   }
 
+  DateTime get toDate {
+    return DateTime.parse(this);
+  }
+
   String capitalize() {
     if(this.isEmpty) return '';
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
@@ -97,17 +105,30 @@ extension StringEx on String{
   }
 
   int get moneyToInt{
-    return int.tryParse(replaceAll(',', '').replaceAll('.', '').replaceAll(appCurrency, ''))??0;
+    return int.tryParse(replaceAll(thousandths, '').replaceAll(decimalDigit, '').replaceAll(appCurrency, ''))??0;
   }
 
   double get moneyToDouble{
-    return double.tryParse(replaceAll(',', '').replaceAll('.', '').replaceAll(appCurrency, ''))??0;
+    return double.tryParse(replaceAll(thousandths, '').replaceAll(decimalDigit, '').replaceAll(appCurrency, ''))??0;
   }
 
   num get moneyToNum{
-    var money =  num.tryParse(replaceAll(',', ''))??0;
+    var money =  num.tryParse(replaceAll(thousandths, ''))??0;
     return money;
   }
+
+  num get toNum{
+    // final split = this.split('.');
+    //
+    // if(split.length >= 2 && split[1].isEmpty){
+    //   return num.tryParse(split[0].replaceAll(',', ''))??0;
+    // }
+
+    var money =  num.tryParse(replaceAll(thousandths, ''))??0;
+
+    return money;
+  }
+
 
   bool get isTrimEmpty {
     return trim().isEmpty;

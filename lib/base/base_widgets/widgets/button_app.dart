@@ -91,6 +91,7 @@ class _ButtonState extends State<Button> {
           ),
       child: RawMaterialButton(
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+
         hoverColor: widget.hoverColor,
         onPressed: () {
           if (widget.needDelay) {

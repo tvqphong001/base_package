@@ -3,6 +3,7 @@ import '../base.dart';
 abstract class RestApiServiceImp {
   Future<ApiResponse<Response?>> post({required String path,  body, Options? options});
   Future<ApiResponse<Response?>> put({required String path,  body, Options? options});
+  Future<ApiResponse<Response?>> patch({required String path,  body, Options? options});
 
   Future<ApiResponse<Response?>> get({required String path, Map<String, dynamic>? query, Options? options});
   Future<ApiResponse<Response?>> delete({required String path, Map<String, dynamic>? data, Options? options});
@@ -24,7 +25,6 @@ class RestApiService implements RestApiServiceImp {
   saveToken(String accessToken) {
     dio.options.headers[authorization] = "$bearer";
     dio.options.headers[authorization] = "$bearer $accessToken";
-    print('object');
   }
 
   deleteToken() {
@@ -50,10 +50,7 @@ class RestApiService implements RestApiServiceImp {
   Future<ApiResponse<Response?>> get(
       {required String path, Map<String, dynamic>? query, Options? options}) async {
     if (query != null) {
-      if(query is Map<String, dynamic>){
-        removeNull(query);
-      }
-
+      removeNull(query);
     }
 
     return await handleResponseFunc(future: () {
@@ -65,13 +62,13 @@ class RestApiService implements RestApiServiceImp {
     try {
       final resp = await future();
       return ApiResponse(data: resp,statusCode: resp?.statusCode);
-    } on DioError catch (e, stack) {
+    } on DioError catch (e) {
       print(e);
       var resp = e.response;
       return ApiResponse(data: resp,statusCode: resp?.statusCode,apiError: ApiError(
         error: e,
       ));
-    } catch (e, stack) {
+    } catch (e) {
       print(e);
       return ApiResponse(apiError: ApiError(
         error: e,
@@ -92,11 +89,44 @@ class RestApiService implements RestApiServiceImp {
       if(body is Map<String, dynamic>){
         removeNull(body);
       }
-
     }
 
     return await handleResponseFunc(future: () {
       return dio.put(path, data: body, options: options);
     },);
   }
+
+  @override
+  Future<ApiResponse<Response?>> patch({required String path, body, Options? options}) {
+    if (body != null) {
+      if(body is Map<String, dynamic>){
+        removeNull(body);
+      }
+    }
+
+    return handleResponseFunc(future: () {
+      return dio.patch(path, data: body, options: options);
+    },);
+  }
+
+  // @override
+  // Future<ApiResponse<Response?>> patch({required String path, body, Options? options}) {
+  //   if (body != null) {
+  //     if(body is Map<String, dynamic>){
+  //       removeNull(body);
+  //     }
+  //   }
+  //
+  //   return await handleResponseFunc(future: () {
+  //     return dio.patch(path, data: body, options: options);
+  //   },);
+  // }
+}
+
+
+Future<ApiResponse<Response?>> fakeApi({required Duration duration}) async{
+  await Future.delayed(duration);
+  return ApiResponse(data: Response(requestOptions: RequestOptions(
+      path: '/fake-api'
+  ),));
 }

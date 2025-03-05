@@ -1,8 +1,6 @@
 import '../../base.dart';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:intl/intl.dart';
 
 export 'functions_foundation.dart';
 export 'functions_ui.dart';
@@ -12,7 +10,7 @@ export 'functions_system.dart';
 import 'package:http/http.dart' as http;
 
 void hideKeyBoard([BuildContext? context]) {
-  FocusScopeNode currentFocus = FocusScope.of(context ?? ScreenHelper.context);
+  FocusScopeNode currentFocus = FocusScope.of(context ?? currentContext);
   if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
     FocusManager.instance.primaryFocus?.unfocus();
   }

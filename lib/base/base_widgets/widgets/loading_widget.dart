@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'dart:async';
 import '../../base.dart';
 
 
@@ -6,7 +6,13 @@ bool isLoading = false;
 
 Widget? loadingWidgetGlobal;
 
-void showLoading([BuildContext? context]) {
+final List<Completer> listCompleter = [];
+
+void showLoading({BuildContext? context,Completer? completer}) {
+
+  if(completer != null){
+    listCompleter.add(completer);
+  }
   if (isLoading) return;
   isLoading = true;
   showDialog(
@@ -17,8 +23,25 @@ void showLoading([BuildContext? context]) {
       });
 }
 
-void hideLoading([BuildContext? context]) {
-  if (isLoading) {
+void hideLoading({BuildContext? context, Completer? completer}) {
+  var isComplete = false;
+
+  if(completer != null){
+    if(!completer.isCompleted){
+      completer.complete();
+    }
+    final listNotComplete = listCompleter.where((element) => element.isCompleted == false,).toList();
+    if(listNotComplete.isEmpty){
+      isComplete = true;
+
+      listCompleter.clear();
+    }
+
+  }else{
+    isComplete = true;
+  }
+
+  if (isLoading && isComplete) {
     isLoading = false;
     pop(context);
   }
@@ -29,7 +52,7 @@ class LoadingWidget extends StatelessWidget {
   const LoadingWidget({super.key});
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return loadingWidgetGlobal ?? const Center(
       child: CircularProgressIndicator(
         backgroundColor: Colors.grey,
         // valueColor: AlwaysStoppedAnimation<Color>(Colors.red),

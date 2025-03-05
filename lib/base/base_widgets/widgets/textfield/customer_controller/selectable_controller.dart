@@ -10,6 +10,11 @@ class SelectableController<Data> extends TextEditingController{
     this.text = text??'';
     valueData = value;
   }
+
+  void setDataRaw({required Data? value,}){
+    valueData = value;
+  }
+
   set data(Data? value){
     valueData = value;
   }
@@ -17,7 +22,6 @@ class SelectableController<Data> extends TextEditingController{
   Data? get data{
     return valueData;
   }
-
 
 }
 

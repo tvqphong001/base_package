@@ -1,11 +1,13 @@
 import '../../base.dart';
 
+var colorDividerDash = Colors.black;
+
 class DividerDash extends StatelessWidget {
   final double height;
-  final Color color;
+  final Color? color;
   final double dashWidth;
 
-  const DividerDash({Key? key, this.height = 1, this.color = Colors.black,this. dashWidth = 5})
+  const DividerDash({Key? key, this.height = 1, this.color,this. dashWidth = 5})
       : super(key: key);
 
 
@@ -24,7 +26,7 @@ class DividerDash extends StatelessWidget {
               width: dashWidth,
               height: dashHeight,
               child: DecoratedBox(
-                decoration: BoxDecoration(color: color),
+                decoration: BoxDecoration(color: color??colorDividerDash),
               ),
             );
           }),
